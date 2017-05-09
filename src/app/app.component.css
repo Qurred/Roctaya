@@ -19,16 +19,17 @@ h1 {
     padding: 3px;
     width: 45%;
 }
+
 .info h3{
-    font-size: 10px;;
+    font-size: 10px;
 }
 
 .login{
+    text-align: center;
     float: right;
     background-color: azure;
-    border-style: solid;
-    border-left: 1px;
-    margin: 0;
+    margin: 5px 10px 5px 0 ;
     padding: 3px;
+    height: 45vh;
     width: 45%;
 }

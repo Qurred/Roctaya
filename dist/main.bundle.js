@@ -8,7 +8,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, ".mainDiv {\r\n    background-color: bisque;\r\n    border-style: solid;\r\n    border-radius: 15px;\r\n    width: 33vw;\r\n    height: 66vh;\r\n    margin: 10vh 33vw;\r\n\r\n}\r\nh1 {\r\n    font-size:6vh;\r\n    text-align: center;\r\n    vertical-align: 0;\r\n}\r\n\r\n.info{\r\n    float: left;\r\n    margin: 0;\r\n    padding: 3px;\r\n    width: 45%;\r\n}\r\n.info h3{\r\n    font-size: 10px;;\r\n}\r\n\r\n.login{\r\n    float: right;\r\n    background-color: azure;\r\n    border-style: solid;\r\n    border-left: 1px;\r\n    margin: 0;\r\n    padding: 3px;\r\n    width: 45%;\r\n}", ""]);
+exports.push([module.i, ".mainDiv {\r\n    background-color: bisque;\r\n    border-style: solid;\r\n    border-radius: 15px;\r\n    width: 33vw;\r\n    height: 66vh;\r\n    margin: 10vh 33vw;\r\n\r\n}\r\nh1 {\r\n    font-size:6vh;\r\n    text-align: center;\r\n    vertical-align: 0;\r\n}\r\n\r\n.info{\r\n    float: left;\r\n    margin: 0;\r\n    padding: 3px;\r\n    width: 45%;\r\n}\r\n\r\n.info h3{\r\n    font-size: 10px;\r\n}\r\n\r\n.login{\r\n    text-align: center;\r\n    float: right;\r\n    background-color: azure;\r\n    margin: 5px 10px 5px 0 ;\r\n    padding: 3px;\r\n    height: 45vh;\r\n    width: 45%;\r\n}", ""]);
 
 // exports
 
@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ 139:
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"mainDiv\">\n  <h1>\n    {{title}}\n    <br><hr>\n    <div style=\"display: inline-block; width: 100%;\">\n      <div class=\"info\">\n      {{info}}\n      </div>\n      <div class=\"login\">\n        <form>\n          <h3>Login</h3>\n        </form>\n      </div>\n    </div>\n  </h1>\n</div>\n"
+module.exports = "<div class=\"mainDiv\">\n  <h1>\n    {{title}}\n  </h1>\n    <hr>\n    <div style=\"display: inline-block; width: 100%;\">\n      <div class=\"info\">\n      {{info}}\n      </div>\n      <div class=\"login\">\n        <form>\n          <h3>Login</h3>\n        </form>\n      </div>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -84,7 +84,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Roctaya!';
-        this.info = 'Browser game, WIP';
+        this.info = 'Browser game, WIP   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus, odio at dapibus gravida, enim risus egestas tellus, in ultrices ante quam a velit. Aenean ac tempus velit, eget bibendum magna. Duis nec condimentum sem. Aenean sit amet leo ullamcorper, ultrices neque sit amet, maximus nisl. Proin pulvinar efficitur sapien nec sagittis. In sit amet lorem nunc. Sed placerat nulla id sollicitudin aliquet. Donec tincidunt pharetra ex, eu congue turpis gravida sed. Curabitur ultrices condimentum justo at pretium.';
     }
     return AppComponent;
 }());
