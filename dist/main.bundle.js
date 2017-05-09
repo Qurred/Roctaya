@@ -8,7 +8,7 @@ exports = module.exports = __webpack_require__(46)(false);
 
 
 // module
-exports.push([module.i, "", ""]);
+exports.push([module.i, ".mainDiv {\r\n    background-color: bisque;\r\n    border-style: solid;\r\n    border-radius: 15px;\r\n    width: 33vw;\r\n    height: 66vh;\r\n    margin: 10vh 33vw;\r\n\r\n}\r\nh1 {\r\n    font-size:6vh;\r\n    text-align: center;\r\n    vertical-align: 0;\r\n}\r\n\r\n.info{\r\n    float: left;\r\n    margin: 0;\r\n    padding: 3px;\r\n    width: 45%;\r\n}\r\n.info h3{\r\n    font-size: 10px;;\r\n}\r\n\r\n.login{\r\n    float: right;\r\n    background-color: azure;\r\n    border-style: solid;\r\n    border-left: 1px;\r\n    margin: 0;\r\n    padding: 3px;\r\n    width: 45%;\r\n}", ""]);
 
 // exports
 
@@ -21,7 +21,7 @@ module.exports = module.exports.toString();
 /***/ 139:
 /***/ (function(module, exports) {
 
-module.exports = "<h1>\n  {{title}}\n</h1>\n"
+module.exports = "<div class=\"mainDiv\">\n  <h1>\n    {{title}}\n    <br><hr>\n    <div style=\"display: inline-block; width: 100%;\">\n      <div class=\"info\">\n      {{info}}\n      </div>\n      <div class=\"login\">\n        <form>\n          <h3>Login</h3>\n        </form>\n      </div>\n    </div>\n  </h1>\n</div>\n"
 
 /***/ }),
 
@@ -84,6 +84,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var AppComponent = (function () {
     function AppComponent() {
         this.title = 'Roctaya!';
+        this.info = 'Browser game, WIP';
     }
     return AppComponent;
 }());

@@ -1,0 +1,34 @@
+.mainDiv {
+    background-color: bisque;
+    border-style: solid;
+    border-radius: 15px;
+    width: 33vw;
+    height: 66vh;
+    margin: 10vh 33vw;
+
+}
+h1 {
+    font-size:6vh;
+    text-align: center;
+    vertical-align: 0;
+}
+
+.info{
+    float: left;
+    margin: 0;
+    padding: 3px;
+    width: 45%;
+}
+.info h3{
+    font-size: 10px;;
+}
+
+.login{
+    float: right;
+    background-color: azure;
+    border-style: solid;
+    border-left: 1px;
+    margin: 0;
+    padding: 3px;
+    width: 45%;
+}
