@@ -4,7 +4,7 @@ const express = require('express'),
     bodyParser = require('body-parser');
 
 //Link to api
-//const api = require('path-to-api');
+const api = require('./server/api');
 
 const app = express();
 
@@ -12,6 +12,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 //makes dist-folder static, folder where ng2 will be for now
 app.use(express.static(path.join(__dirname, 'dist')));
+
+app.use('/api', api);
 
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'dist/index.html'));
@@ -21,7 +23,16 @@ app.set('port', process.env.PORT || '3000');
 
 const server = http.createServer(app);
 
-server.listen(process.env.PORT || '3000', () => console.log(`Backend is running`));
+var chat = require('./server/chat')(server);
+
+app.use(function(req, res, next) {
+  res.redirect('/');
+});
+
+server.listen(app.get('port'), () => console.log(`Backend is running at ${app.get('port')}`));
+
+
+
 //TODO fix this *****
 // var pg = require('pg');//.native;
 
