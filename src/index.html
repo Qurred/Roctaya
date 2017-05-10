@@ -16,8 +16,14 @@
     </div>
     </app-root>
     <script>
-      var socket = io();
+      var socket = io('', {
+        //fix query to send out token given via auth
+        query: 'token='
+      });
       socket.on('welc', (data)=>{
+        console.log(data);
+      });
+      socket.on('msg', (data) =>{
         console.log(data);
       })
     </script>

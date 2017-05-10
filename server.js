@@ -23,7 +23,9 @@ app.set('port', process.env.PORT || '3000');
 
 const server = http.createServer(app);
 
-var chat = require('./server/chat')(server);
+var users = [];
+
+var chat = require('./server/chat')(server,users);
 
 app.use(function(req, res, next) {
   res.redirect('/');
