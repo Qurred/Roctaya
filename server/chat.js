@@ -4,6 +4,8 @@
 // nickname: string
 // _socket: io socket
 
+//Maybe rename this js-file into 'game.js' ?
+
 module.exports = function (http,users){
     var usersA = 0;
     var io = require('socket.io')(http);
@@ -26,7 +28,11 @@ module.exports = function (http,users){
 
         socket.on('disconnect', () =>{
             usersA--;
-            console.log('Chat', 'Currently ' + usersA + ' user online')
+            socket.broadcast.emit('msg',{
+                sender: 'Server',
+                msg: 'User Disconnected, Currently ' + usersA + ' user online'
+            });
+            console.log('Chat', 'User Disconnected, Currently ' + usersA + ' user online')
         });
     });
 

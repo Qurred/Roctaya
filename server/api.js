@@ -21,9 +21,13 @@ router.get('/characters',(req, res, next) =>{
     });
 });
 
+router.post('/signup',(req,res,next) =>{
+    res.status(200).json({
+        status: 'ok'
+    });
+})
 
-
-router.post('/auth', (req, res, next) =>{
+router.post('/signin', (req, res, next) =>{
     console.log(req.body.user);
     if(req.body.user && req.body.pword){
         var tmp = {
@@ -44,8 +48,5 @@ router.post('/auth', (req, res, next) =>{
     console.log(tmp);
     res.send(tmp);
 });
-
-
-
 
 module.exports = router;
