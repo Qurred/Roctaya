@@ -33,10 +33,8 @@ app.use(function(req, res, next) {
 
 server.listen(app.get('port'), () => console.log(`Backend is running at ${app.get('port')}`));
 
-
-
-//TODO fix this *****
-// var pg = require('pg');//.native;
+//Fix it later
+//var pg = require('pg');//.native;
 
 // var config = require('./config.json');
 
