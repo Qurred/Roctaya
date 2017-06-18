@@ -56,7 +56,9 @@ router.post('/signup',(req,res,next) =>{
         connectoToDB(res);
         client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
         //TMP return type to check if working
-        client.done();
+        client.end(err =>{
+            if(err) console.log(err);
+        });
         return res.status(200).json({
             status: `All is working, result is ${query[0]}:${hashed}`,
             data: `No database connection yet, so nothing is saved`
