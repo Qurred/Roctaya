@@ -55,7 +55,7 @@ router.post('/signup',(req,res,next) =>{
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
     //if(!connectoToDB()){/* return res.status(500).json({message:`Internal failure`});*/}
-         pg.connect(connectionString, (err, client, done) => {
+         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
                 done();
                 console.log(err);
