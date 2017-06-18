@@ -85,8 +85,7 @@ router.post('/signin', (req, res, next) =>{
             const q = client.query("SELECT * FROM player where UPPER(username) = UPPER($1)", [query[0]]);            
             q.on('row', (row) =>{
                 //TODO make better
-                console.log(row);
-                if(row.password == hashed){
+                if(row.password === hashed){
                     result.message = `Signin success`;
                     result.id = row.id;
                     result.nickname = row.nickname;
