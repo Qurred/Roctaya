@@ -81,7 +81,7 @@ router.post('/signin', (req, res, next) =>{
                 console.log(`Signin`,err);
                 return res.status(500).json({message: `Internal error`});
             }
-            const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);            
+            const q = client.query(`SELECT * FROM player where username ='($1)'`, [query[0]]);            
             q.on('row', (row) =>{
                 //TODO make better
                 if(row.password == hashed){
