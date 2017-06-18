@@ -7,9 +7,6 @@ const pgConnectionString = process.env.DATABASE_URL || require('../config.json')
 const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET;
 var client = null; 
-console.log(pgConnectionString);
-console.log(secret);
-console.log(hashSecret);
 
 //It seems that boolean value doesnt have an effect
 function connectoToDB(){
@@ -57,16 +54,24 @@ router.post('/signup',(req,res,next) =>{
         }
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-        if(!connectoToDB()){/* return res.status(500).json({message:`Internal failure`});*/}
-        client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
-        //TMP return type to check if working
-        client.end(err =>{
-            if(err) console.log(err);
-        });
-        return res.status(200).json({
-            status: `All is working, result is ${query[0]}:${hashed}`,
-            data: `No database connection yet, so nothing is saved`
-        });
+    //if(!connectoToDB()){/* return res.status(500).json({message:`Internal failure`});*/}
+         pg.connect(connectionString, (err, client, done) => {
+            if(err) {
+                done();
+                console.log(err);
+                return res.status(500).json({success: false, data: err});
+            }
+            client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
+            //TMP return type to check if working
+            // client.end(err =>{
+            //     if(err) console.log(err);
+            // });
+            done();
+            return res.status(200).json({
+                status: `All is working, result is ${query[0]}:${hashed}`,
+                data: `No database connection yet, so nothing is saved`
+            });
+         });
     }else{
         return res.status(401).json({ //Change code 
             status: 'Invalid signup parameters'
