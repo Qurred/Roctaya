@@ -7,10 +7,13 @@ const pgConnectionString = process.env.DATABASE_URL || require('../config.json')
 const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET;
 var client = null; 
-
+console.log(pgConnectionString);
+console.log(secret);
+console.log(hashSecret);
 function connectoToDB(){
     client = new pg.Client(pgConnectionString);
     client.connect((err,client,done) =>{
+        console.log(err);
         if(err){
             return false;
         }return true;
