@@ -4,11 +4,11 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
 const pgConnectionString = process.env.DATABASE_URL || require('../config.json').pg.URI;
-const client = new pg.Client(pgConnectionString);
-
+const client; 
 
 function connectoToDB(res){
-    client.connect(pgConnectionString, (err,client,done) =>{
+    client = new pg.Client(pgConnectionString);
+    client.connect((err,client,done) =>{
         if(err){
             console.log(err);
             return res.status(500).json({ //Change code 
