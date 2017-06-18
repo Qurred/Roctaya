@@ -14,8 +14,10 @@ function connectoToDB(){
     client = new pg.Client(pgConnectionString);
     client.connect((err,client,done) =>{
         if(err){
+            console.log('error', err);
             return false;
-        }return true;
+        }
+        return true;
     });
 }
 
@@ -80,7 +82,7 @@ router.post('/signin', (req, res, next) =>{
             });
         }
         const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-        if(!connectoToDB()){ return res.status(500).json({message:`Internal failure`});}
+        if(!connectoToDB()){ /*return res.status(500).json({message:`Internal failure`});*/ console.log('it would be an error...')}
         const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);
         var  result = {};
         q.on('row', (row) =>{
