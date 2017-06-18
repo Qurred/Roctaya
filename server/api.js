@@ -10,6 +10,8 @@ var client = null;
 console.log(pgConnectionString);
 console.log(secret);
 console.log(hashSecret);
+
+//It seems that boolean value doesnt have an effect
 function connectoToDB(){
     client = new pg.Client(pgConnectionString);
     client.connect((err,client,done) =>{
@@ -55,7 +57,7 @@ router.post('/signup',(req,res,next) =>{
         }
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-        if(!connectoToDB()){ return res.status(500).json({message:`Internal failure`});}
+        if(!connectoToDB()){/* return res.status(500).json({message:`Internal failure`});*/}
         client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
         //TMP return type to check if working
         client.end(err =>{
