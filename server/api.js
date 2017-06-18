@@ -99,7 +99,7 @@ router.post('/signin', (req, res, next) =>{
             }
         });
         q.on('end', () =>{
-            done();
+            client.end();
             return res.status(result.id? 200: 401).json(result);
         });
 
