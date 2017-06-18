@@ -1,12 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const cryptoMain = require('crypto');
+const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
 const pgConnectionString = process.env.DATABASE_URL || require('../config.json').pg.URI;
 const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET; //Not the best way, rainbow atk is possible still
-const crypto = cryptoMain.createHmac('sha256', hashSecret);
 var client = null; 
 
 router.get('/news',(req,res,next) =>{
@@ -47,7 +46,8 @@ router.post('/signup',(req,res,next) =>{
             });
         }
         console.log(query);
-        var hashed = crypto.update(query[1]).digest('hex');
+        var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
+        console.log(hashed);
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
                 done();
@@ -80,7 +80,8 @@ router.post('/signin', (req, res, next) =>{
             });
         }
         console.log(query);
-        const hashed = crypto.update(query[1]).digest('hex');
+        const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
+        console.log(hashed);
         var  result = {message:'Failed to signin'};
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
