@@ -8,7 +8,7 @@ const client = new pg.Client(pgConnectionString);
 
 
 function connectoToDB(res){
-    client.connect((err,client,done) =>{
+    client.connect(pgConnectionString, (err,client,done) =>{
         if(err){
             console.log(err);
             return res.status(500).json({ //Change code 
