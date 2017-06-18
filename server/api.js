@@ -41,7 +41,6 @@ router.post('/signup',(req,res,next) =>{
                 status: false
             });
         }
-        //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
@@ -67,6 +66,7 @@ router.post('/signup',(req,res,next) =>{
 
 router.post('/signin', (req, res, next) =>{
     if(req.body.query){ 
+        console.log(req.body);
         const query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
         if(query.length != 2){
                 return res.status(401).json({ //Change code 
@@ -74,12 +74,11 @@ router.post('/signin', (req, res, next) =>{
             });
         }
         const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-        const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);
         var  result = {message:'Failed to signin'};
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
                 done();
-                console.log(err);
+                console.log(`Signin`,err);
                 return res.status(500).json({message: `Internal error`});
             }
             const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);            
@@ -92,10 +91,7 @@ router.post('/signin', (req, res, next) =>{
                     result.token = jwt.sign({
                         id: row.id,
                         username:row.username
-                    },secret,  //From a file?
-                    {
-                        expiresIn: 3600 //One hour, do we need more?
-                    });
+                    },secret,{expiresIn: 3600});
                 }
             });
             q.on('end', () =>{
