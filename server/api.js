@@ -1,7 +1,23 @@
-var express = require('express');
-var router = express.Router();
-var crypto = require('crypto');
-var jwt = require('jsonwebtoken')
+const express = require('express');
+const router = express.Router();
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
+const pg = require('pg');
+const pgConnectionString = process.env.DATABASE_URL || require('../config.json').pg.URI;
+const client = new pg.Client(pgConnectionString);
+
+
+function connectoToDB(res){
+    client.connect((err,client,done) =>{
+        if(err){
+            console.log(err);
+            return res.status(500).json({ //Change code 
+                status: 'Database problems'
+            });
+        }
+        console.log('Connected');
+    });
+}
 
 router.get('/news',(req,res,next) =>{
     //Gets all news from database
@@ -30,15 +46,18 @@ router.get('/news',(req,res,next) =>{
 router.post('/signup',(req,res,next) =>{
     if(req.body.query){
         var query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
-        if(query.length != 2){
+        if(query.length != 3){
             return res.status(401).json({ //Change code 
                 status: 'Invalid signup parameters'
             });
         }
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', 'superOpSecret').update(query[1]).digest('hex');
+        connectoToDB(res);
+        client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
         //TMP return type to check if working
-        res.status(200).json({
+        client.done();
+        return res.status(200).json({
             status: `All is working, result is ${query[0]}:${hashed}`,
             data: `No database connection yet, so nothing is saved`
         });
@@ -51,37 +70,73 @@ router.post('/signup',(req,res,next) =>{
 })
 
 router.post('/signin', (req, res, next) =>{
-    if(req.body.user && req.body.pword){
-        //TODO DATABASE CHECK
-        //Should we send user it's id?
-        //To use friendlist and other features we need to know id of an user.
-        //But should we create an "fake id" which is linked into real id ?
-        var tmp = {
-        user: req.body.user,
-        pword: req.body.pword,
-        status: "ok",
-        message: "Provided all needed data for this test",
-        socket: "URL to the socket"
-      };
-      var token = jwt.sign({
-          user: tmp.user
-        }, //Payload, the data we want to save
-        `secret`,  //From a file?
-        {
-            expiresIn: 3600 //One hour, do we need more?
+    if(req.body.query){ 
+        const query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
+        if(query.length != 2){
+                return res.status(401).json({ //Change code 
+                status: 'Invalid signin parameters'
+            });
         }
-      )
-      tmp.token = token;
+        const hashed = crypto.createHmac('sha256', 'superOpSecret').update(query[1]).digest('hex');
+        connectoToDB(res);
+        const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);
+        var  result = {};
+        q.on('row', (row) =>{
+            //TODO make better
+            if(row.password == hashed){
+                result.id = row.id;
+                result.nickname = row.nickname;
+                result.token = jwt.sign({
+                    username:row.username
+                }`secret`,  //From a file?
+                {
+                    expiresIn: 3600 //One hour, do we need more?
+                });
+            }else{
+                result.message = 'Failed to signin'
+            }
+        });
+        q.on('end', () =>{
+            done();
+            return res.status(result.id? 200: 401).json(result);
+        });
+
     }else{
-        var tmp = {
-            user: "",
-            pword: "",
-            status: "FALSE",
-            message:"Didnt provide all needed info"
-        }
+        return res.status(401).json({ //Change code 
+            status: 'Invalid signin parameters'
+        });
     }
-    console.log(tmp);
-    res.send(tmp);
+    // if(req.body.user && req.body.pword){
+    //     //TODO DATABASE CHECK
+    //     //Should we send user it's id?
+    //     //To use friendlist and other features we need to know id of an user.
+    //     //But should we create an "fake id" which is linked into real id ?
+    //     var tmp = {
+    //     user: req.body.user,
+    //     pword: req.body.pword,
+    //     status: "ok",
+    //     message: "Provided all needed data for this test",
+    //     socket: "URL to the socket"
+    //   };
+    //   var token = jwt.sign({
+    //       user: tmp.user
+    //     }, //Payload, the data we want to save
+    //     `secret`,  //From a file?
+    //     {
+    //         expiresIn: 3600 //One hour, do we need more?
+    //     }
+    //   )
+    //   tmp.token = token;
+    // }else{
+    //     var tmp = {
+    //         user: "",
+    //         pword: "",
+    //         status: "FALSE",
+    //         message:"Didnt provide all needed info"
+    //     }
+    // }
+    // console.log(tmp);
+    // res.send(tmp);
     /*result with given parameters
         {
             "user": "kuha",
