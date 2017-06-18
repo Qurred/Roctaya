@@ -8,18 +8,6 @@ const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET;
 var client = null; 
 
-//It seems that boolean value doesnt have an effect
-function connectoToDB(){
-    client = new pg.Client(pgConnectionString);
-    client.connect((err,client,done) =>{
-        if(err){
-            console.log('error', err);
-            return true;
-        }
-        return false;
-    });
-}
-
 router.get('/news',(req,res,next) =>{
     //Gets all news from database
     var news = [];
@@ -48,33 +36,30 @@ router.post('/signup',(req,res,next) =>{
     if(req.body.query){
         var query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
         if(query.length != 3){
-            return res.status(401).json({ //Change code 
-                status: 'Invalid signup parameters'
+            return res.status(401).json({
+                message:'Invalid signup parameters',
+                status: false
             });
         }
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-    //if(!connectoToDB()){/* return res.status(500).json({message:`Internal failure`});*/}
-         pg.connect(pgConnectionString, (err, client, done) => {
+        pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
                 done();
                 console.log(err);
-                return res.status(500).json({success: false, data: err});
+                return res.status(500).json({message: `Internal error`});
             }
             client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
-            //TMP return type to check if working
-            // client.end(err =>{
-            //     if(err) console.log(err);
-            // });
-            done();
+            done(); //Closes the connection
             return res.status(200).json({
-                status: `All is working, result is ${query[0]}:${hashed}`,
-                data: `No database connection yet, so nothing is saved`
+                message: `Signup success`,
+                status: true
             });
          });
     }else{
-        return res.status(401).json({ //Change code 
-            status: 'Invalid signup parameters'
+        return res.status(401).json({
+            message:'Invalid signup parameters',
+            status: false
         });
     }
     //Should we send token here or force them to login?
@@ -89,32 +74,39 @@ router.post('/signin', (req, res, next) =>{
             });
         }
         const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-        if(!connectoToDB()){ /*return res.status(500).json({message:`Internal failure`});*/ console.log('it would be an error...')}
         const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);
         var  result = {message:'Failed to signin'};
-        q.on('row', (row) =>{
-            //TODO make better
-            if(row.password == hashed){
-                result.message = `Signin success`;
-                result.id = row.id;
-                result.nickname = row.nickname;
-                result.token = jwt.sign({
-                    id: row.id,
-                    username:row.username
-                },secret,  //From a file?
-                {
-                    expiresIn: 3600 //One hour, do we need more?
-                });
+        pg.connect(pgConnectionString, (err, client, done) => {
+            if(err) {
+                done();
+                console.log(err);
+                return res.status(500).json({message: `Internal error`});
             }
+            const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);            
+            q.on('row', (row) =>{
+                //TODO make better
+                if(row.password == hashed){
+                    result.message = `Signin success`;
+                    result.id = row.id;
+                    result.nickname = row.nickname;
+                    result.token = jwt.sign({
+                        id: row.id,
+                        username:row.username
+                    },secret,  //From a file?
+                    {
+                        expiresIn: 3600 //One hour, do we need more?
+                    });
+                }
+            });
+            q.on('end', () =>{
+                done();
+                return res.status(result.id? 200: 401).json(result);
+            });
         });
-        q.on('end', () =>{
-            client.end();
-            return res.status(result.id? 200: 401).json(result);
-        });
-
     }else{
-        return res.status(401).json({ //Change code 
-            status: 'Invalid signin parameters'
+        return res.status(401).json({
+            message:'Invalid signin parameters',
+            status: false
         });
     }
 });
@@ -122,7 +114,6 @@ router.post('/signin', (req, res, next) =>{
 
 //Now the middleware to verify token
 router.use(function(req,res,next){
-
     //GET is using req.headers
     //POST is using body, maybe we should put post to headers also?
     var token = req.body.token || req.headers['x-access-token']; //or should we use other name for header?
@@ -137,14 +128,12 @@ router.use(function(req,res,next){
                 next();
             }
         });
-
     }else{//There is no token provided
         return res.status(403).send({
             message: 'No token found'
         });
     }
 });
-
 
 router.get('/characters',(req, res, next) =>{
     //Get datas from characters
