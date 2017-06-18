@@ -4,6 +4,8 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
 const pgConnectionString = process.env.DATABASE_URL || require('../config.json').pg.URI;
+const secret = process.env.SECRET;
+const hashSecret = process.env.HASHSECRET;
 var client = null; 
 
 function connectoToDB(){
@@ -48,7 +50,7 @@ router.post('/signup',(req,res,next) =>{
             });
         }
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
-        var hashed = crypto.createHmac('sha256', 'superOpSecret').update(query[1]).digest('hex');
+        var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
         if(!connectoToDB()) return res.status(500).json({message:`Internal failure`})
         client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
         //TMP return type to check if working
@@ -75,7 +77,7 @@ router.post('/signin', (req, res, next) =>{
                 status: 'Invalid signin parameters'
             });
         }
-        const hashed = crypto.createHmac('sha256', 'superOpSecret').update(query[1]).digest('hex');
+        const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
         if(!connectoToDB()) return res.status(500).json({message:`Internal failure`})
         const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);
         var  result = {};
@@ -85,8 +87,9 @@ router.post('/signin', (req, res, next) =>{
                 result.id = row.id;
                 result.nickname = row.nickname;
                 result.token = jwt.sign({
+                    id: row.id,
                     username:row.username
-                }`secret`,  //From a file?
+                },secret,  //From a file?
                 {
                     expiresIn: 3600 //One hour, do we need more?
                 });
@@ -104,47 +107,6 @@ router.post('/signin', (req, res, next) =>{
             status: 'Invalid signin parameters'
         });
     }
-    // if(req.body.user && req.body.pword){
-    //     //TODO DATABASE CHECK
-    //     //Should we send user it's id?
-    //     //To use friendlist and other features we need to know id of an user.
-    //     //But should we create an "fake id" which is linked into real id ?
-    //     var tmp = {
-    //     user: req.body.user,
-    //     pword: req.body.pword,
-    //     status: "ok",
-    //     message: "Provided all needed data for this test",
-    //     socket: "URL to the socket"
-    //   };
-    //   var token = jwt.sign({
-    //       user: tmp.user
-    //     }, //Payload, the data we want to save
-    //     `secret`,  //From a file?
-    //     {
-    //         expiresIn: 3600 //One hour, do we need more?
-    //     }
-    //   )
-    //   tmp.token = token;
-    // }else{
-    //     var tmp = {
-    //         user: "",
-    //         pword: "",
-    //         status: "FALSE",
-    //         message:"Didnt provide all needed info"
-    //     }
-    // }
-    // console.log(tmp);
-    // res.send(tmp);
-    /*result with given parameters
-        {
-            "user": "kuha",
-            "pword": "lahna",
-            "status": "ok",
-            "message": "Provided all needed data for this test",
-            "socket": "URL to the socket",
-            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjoia3VoYSIsImlhdCI6MTQ5NzYxODU3NCwiZXhwIjoxNDk3NjIyMTc0fQ.WSlGLihE1TcyCTlpPGAvg8TJRLXmhglnSSVqLWwQmC0"
-        }
-    */
 });
 
 
@@ -155,7 +117,7 @@ router.use(function(req,res,next){
     //POST is using body, maybe we should put post to headers also?
     var token = req.body.token || req.headers['x-access-token']; //or should we use other name for header?
     if(token){
-        jwt.verify(token,`secret`, function(err, result){
+        jwt.verify(token,secret, function(err, result){
             if(err){
                 return res.status(401).send({
                     message: `Authenticating token failed`
