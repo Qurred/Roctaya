@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const crypto = require('crypto');
+const cryptoMain = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
 const pgConnectionString = process.env.DATABASE_URL || require('../config.json').pg.URI;
 const secret = process.env.SECRET;
-const hashSecret = process.env.HASHSECRET;
+const hashSecret = process.env.HASHSECRET; //Not the best way, rainbow atk is possible still
+const crypto = cryptoMain.createHmac('sha256', hashSecret);
 var client = null; 
 
 router.get('/news',(req,res,next) =>{
@@ -26,7 +27,11 @@ router.get('/news',(req,res,next) =>{
         news.push({
             date: 'testdate',
             title: `Test Title: ${i}`,
-            text:`jkahrdgilukhfgkjlfghjlkfgdjlkdfghljkdfghjlk`
+            text:`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum varius convallis. Suspendisse ut risus sed felis gravida interdum eget in ipsum. Duis ultrices purus ac congue hendrerit. Praesent eros turpis, dignissim vel fringilla a, auctor at lorem. Sed ac quam nec ante rhoncus posuere volutpat sit amet mi. Praesent at ligula lacus. Sed fermentum sed arcu non commodo.
+
+Donec aliquet imperdiet eros, quis tristique arcu pulvinar id. Suspendisse scelerisque sagittis porttitor. Aliquam et leo at ex ornare malesuada ut vel nunc. In dolor elit, commodo quis lacus at, mattis euismod sem. Nulla malesuada augue a tellus viverra, nec pharetra sem tincidunt. Curabitur quis maximus libero, a elementum velit. Vestibulum et ex ante. Sed id libero sit amet justo ultrices luctus eu at diam. Duis nec rhoncus odio. Curabitur egestas orci diam. Duis aliquam ligula blandit porttitor pharetra. Curabitur vitae suscipit sapien. Morbi et ipsum consectetur, sodales ante ac, egestas risus. Donec malesuada luctus ligula, eu vehicula dui.
+
+Nullam vestibulum lacus eget posuere feugiat. Vestibulum tincidunt neque vitae ullamcorper varius. Proin hendrerit lectus mi, sodales bibendum velit sagittis ac. Morbi eget purus eget mauris convallis fringilla sit amet nec libero. Integer consequat ullamcorper turpis, vel venenatis leo. Mauris luctus mi vel erat consectetur convallis. Nulla venenatis ultrices metus, ut convallis felis placerat eu. Fusce semper diam nibh, eget vulputate justo euismod ac.`
         });
     }
     return res.status(200).send(news);
@@ -41,7 +46,8 @@ router.post('/signup',(req,res,next) =>{
                 status: false
             });
         }
-        var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
+        console.log(query);
+        var hashed = crypto.update(query[1]).digest('hex');
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
                 done();
@@ -73,7 +79,8 @@ router.post('/signin', (req, res, next) =>{
                 status: 'Invalid signin parameters'
             });
         }
-        const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
+        console.log(query);
+        const hashed = crypto.update(query[1]).digest('hex');
         var  result = {message:'Failed to signin'};
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
