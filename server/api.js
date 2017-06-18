@@ -46,7 +46,7 @@ router.post('/signup',(req,res,next) =>{
             });
         }
         console.log(query);
-        var hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
+        var hashed = crypto.createHmac('sha256', hashSecret).update(query[2]).digest('hex');
         console.log(hashed);
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
