@@ -6,16 +6,12 @@ const pg = require('pg');
 const pgConnectionString = process.env.DATABASE_URL || require('../config.json').pg.URI;
 var client = null; 
 
-function connectoToDB(res){
+function connectoToDB(){
     client = new pg.Client(pgConnectionString);
     client.connect((err,client,done) =>{
         if(err){
-            console.log(err);
-            return res.status(500).json({ //Change code 
-                status: 'Database problems'
-            });
-        }
-        console.log('Connected');
+            return false;
+        }return true;
     });
 }
 
@@ -53,7 +49,7 @@ router.post('/signup',(req,res,next) =>{
         }
         //TODO CHANGE SECRET AND MOVE IT TO THE FILE
         var hashed = crypto.createHmac('sha256', 'superOpSecret').update(query[1]).digest('hex');
-        connectoToDB(res);
+        if(!connectoToDB()) return res.status(500).json({message:`Internal failure`})
         client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)',[query[0],query[1],hashed]);
         //TMP return type to check if working
         client.end(err =>{
@@ -80,7 +76,7 @@ router.post('/signin', (req, res, next) =>{
             });
         }
         const hashed = crypto.createHmac('sha256', 'superOpSecret').update(query[1]).digest('hex');
-        connectoToDB(res);
+        if(!connectoToDB()) return res.status(500).json({message:`Internal failure`})
         const q = client.query('SELECT * FROM player where username =($1)', [query[0]]);
         var  result = {};
         q.on('row', (row) =>{
