@@ -82,9 +82,10 @@ router.post('/signin', (req, res, next) =>{
                 return res.status(500).json({message: `Internal error`});
             }
             console.log(`SELECT * FROM player where UPPER(username) = UPPER(${query[0]})`);
-            const q = client.query("SELECT * FROM player where UPPER(username) = UPPER('($1)')", [query[0]]);            
+            const q = client.query("SELECT * FROM player where UPPER(username) = UPPER($1)", [query[0]]);            
             q.on('row', (row) =>{
                 //TODO make better
+                console.log(row);
                 if(row.password == hashed){
                     result.message = `Signin success`;
                     result.id = row.id;
