@@ -9,13 +9,15 @@
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.1/socket.io.js"></script>
 </head>
-<body style="margin: 0; padding: 0;background-color: antiquewhite; ">
+<body style="margin: 0; padding: 0;background-color: antiquewhite; " onload="initBackground()" onresize="updateSize()">
+  <script src="./js/backgroundSpace.js"></script>
+  <canvas id="bgCanvas" style="position: fixed; width:100%; height:100%; z-index:-99999;top:0;"></canvas>
   <app-root>
-    <div style="text-align: center; font-size: 30vh;vertical-align: middle;line-height:100vh">
+    <div style="text-align: center; font-size: 30vh;vertical-align: middle;line-height:100vh; margin:0px;">
       Loading...
     </div>
     </app-root>
-    <script>
+    <!--<script>
       var socket = io('', {
         //fix query to send out token given via auth
         query: 'token='
@@ -26,7 +28,7 @@
       socket.on('msg', (data) =>{
         console.log(data);
       })
-    </script>
+    </script>-->
 
 </body>
 </html>
