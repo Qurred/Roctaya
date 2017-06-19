@@ -100,7 +100,8 @@ router.post('/signin', (req, res, next) =>{
                     result.nickname = row.nickname;
                     result.token = jwt.sign({
                         id: row.id,
-                        username:row.username
+                        username:row.username,
+                        nickname:row.nickname
                     },secret,{expiresIn: 3600});
                 }
             });
