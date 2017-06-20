@@ -75,7 +75,6 @@ module.exports = function (http,users){
         }
 
         socket.emit('users',{users:userList});
-        console.log('Chat', 'Currently ' + usersA + ' user online') //Debug
 
         socket.on('message',(message) =>{
             console.log('Socket Message', message);
