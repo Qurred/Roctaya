@@ -88,9 +88,8 @@ module.exports = function (http,users){
             //Look for user and remove it
             socket.broadcast.emit('msg',{
                 sender: 'Server',
-                msg: 'User Disconnected, Currently ' + usersA + ' user online'
+                msg: `User ${user.nickname} Disconnected`
             });
-            console.log('Chat', 'User Disconnected, Currently ' + usersA + ' user online')
         });
     });
 
