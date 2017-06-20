@@ -21,7 +21,7 @@ module.exports = function (http,users){
     io.use((socket, next)=>{
         const handshake = socket.handshake.query.token;
         if(handshake){
-            jwt.verify(token,process.env.SECRET, function(err, result){
+            jwt.verify(handshake,process.env.SECRET, function(err, result){
                 if(err){
                     console.log('Chat','Error with handshake, denying connection',err); //Debug
                     return next('Deny', false);
