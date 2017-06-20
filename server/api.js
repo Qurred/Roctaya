@@ -72,16 +72,13 @@ router.post('/signup',(req,res,next) =>{
 
 router.post('/signin', (req, res, next) =>{
     if(req.body.query){ 
-        console.log(req.body);
         const query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
         if(query.length != 2){
                 return res.status(401).json({ //Change code 
                 status: 'Invalid signin parameters'
             });
         }
-        console.log(query);
         const hashed = crypto.createHmac('sha256', hashSecret).update(query[1]).digest('hex');
-        console.log(hashed);
         var  result = {message:'Failed to signin'};
         pg.connect(pgConnectionString, (err, client, done) => {
             if(err) {
@@ -89,18 +86,15 @@ router.post('/signin', (req, res, next) =>{
                 console.log(`Signin`,err);
                 return res.status(500).json({message: `Internal error`});
             }
-            console.log(`SELECT * FROM player where UPPER(username) = UPPER(${query[0]})`);
             const q = client.query("SELECT * FROM player where UPPER(username) = UPPER($1)", [query[0]]);            
             q.on('row', (row) =>{
                 //TODO make better
-                console.log(row.password, hashed, row.password === hashed);
                 if(row.password === hashed){
                     result.message = `Signin success`;
                     result.id = row.id;
                     result.nickname = row.nickname;
                     result.token = jwt.sign({
                         id: row.id,
-                        username:row.username,
                         nickname:row.nickname
                     },secret,{expiresIn: 3600});
                 }

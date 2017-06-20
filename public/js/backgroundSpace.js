@@ -1,6 +1,7 @@
 //Canvas size
 let width = window.innerWidth;
 let height = window.innerHeight;
+let extraSpace = 20;
 let targetAmount = 180;
 let dustParticles = [];
 let canvas,ctx;
@@ -77,16 +78,16 @@ function dustParticle(){
         this.x += this.vector.x;
         this.y += this.vector.y;
 
-        if(this.x < 0){
-            this.x = width;
-        }else if(this.x > width){
-            this.x = 0;
+        if(this.x < - extraSpace){
+            this.x = width + extraSpace;
+        }else if(this.x > width + extraSpace){
+            this.x = -extraSpace;
         }
 
-        if(this.y < 0){
-            this.y = height;
-        }else if(this.y > height){
-            this.y = 0;
+        if(this.y < -extraSpace){
+            this.y = height + extraSpace;
+        }else if(this.y > height + extraSpace){
+            this.y = -extraSpace;
         }
     }
 }
