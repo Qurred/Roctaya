@@ -8,7 +8,7 @@ const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET; //Not the best way, rainbow atk is possible still
 var client = null; 
 
-router.get('/news/:offset',(req,res,next) =>{
+router.get('/news',(req,res,next) =>{
     let result = {
         offset:0,
         news:[]
@@ -28,9 +28,11 @@ router.get('/news/:offset',(req,res,next) =>{
                 banner:row.banner,
                 time:row.time
             }
+            console.loh(news);
             result.news.push(news);
             });
             q.on('end', () =>{
+                console.log('News done')
                 done();
             });
         });
