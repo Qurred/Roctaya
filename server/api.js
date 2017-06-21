@@ -16,27 +16,29 @@ router.get('/news',(req,res,next) =>{
     pg.connect(pgConnectionString, (err, client, done) => {
         if(err) {
             done();
-            console.log(`Signin`,err);
+            console.log(`News get`,err);
             return res.status(500).json({message: `Internal error`});
         }
-        const q = client.query("SELECT N.title, N.body, N.banner, N.time::timestamp::date, P.username FROM news as N, player as P WHERE N.creator_id = P.id ORDER BY N.id DESC LIMIT 5 OFFSET $1;",
+        const q = client.query("SELECT N.title, N.body, N.banner, N.time::timestamp::date, P.P.nickname  FROM news as N, player as P WHERE N.creator_id = P.id ORDER BY N.id DESC LIMIT 5 OFFSET $1;",
         [req.query.offset?req.query.offset:0]);            
         q.on('row', (row) =>{
             let news = {
                 title:row.title,
                 creator:row.username,
                 banner:row.banner,
-                time:row.time
+                time:row.time,
+                body:row.body
             }
-            console.log(news);
+            //console.log(news);
             result.news.push(news);
             });
             q.on('end', () =>{
-                console.log('News done')
+                //console.log('News done')
                 done();
+                console.log(result);
+                return res.status(200).send(result);
             });
         });
-    return res.status(200).send(result);
 });
 
 router.post('/signup',(req,res,next) =>{
