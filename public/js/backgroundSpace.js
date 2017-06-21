@@ -35,9 +35,9 @@ function initBackground(){
 
 function mainAnimation(){
     //Should we move this to another function?
-    ctx.fillStyle = bgColor;
-    ctx.fillRect(0,0,width,height);
-
+    // ctx.fillStyle = bgColor;
+    // ctx.fillRect(0,0,width,height);
+    ctx.clearRect(0,0,width,height);
     updateParticles();
     drawDust();
     requestAnimationFrame(mainAnimation);
@@ -59,7 +59,7 @@ function drawDust(){
 
 // Dust particle object
 function dustParticle(){
-    this.r = 2 + Math.random() *10;
+    this.r = 2 + Math.random() *4;
     this.x = Math.random() * width;
     this.y = Math.random() * height;
     this.alpha = 0.7;
@@ -70,13 +70,13 @@ function dustParticle(){
     }
 
     this.show = function(){
-        this.grad=ctx.createRadialGradient( this.x, this.y, this.r, this.x, this.y, 0 );
-        this.grad.addColorStop(1,'rgba(202, 186, 135, 0.473)');
-        this.grad.addColorStop(0,'rgba(202, 186, 135, 0.047)');
+        this.gradient=ctx.createRadialGradient( this.x, this.y, this.r, this.x, this.y, 0 );
+        this.gradient.addColorStop(1,'rgba(206, 231, 252, 0.54)');
+        this.gradient.addColorStop(0,'rgba(206, 231, 252, 0.03)');
 
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
-        ctx.fillStyle = this.grad;
+        ctx.fillStyle = this.gradient;
         ctx.fill();
     }
 

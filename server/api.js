@@ -10,7 +10,7 @@ var client = null;
 
 router.get('/news',(req,res,next) =>{
     let result = {
-        offset:0,
+        offset:req.query.offset?req.query.offset:0,
         news:[]
     }
     pg.connect(pgConnectionString, (err, client, done) => {
@@ -24,16 +24,14 @@ router.get('/news',(req,res,next) =>{
         q.on('row', (row) =>{
             let news = {
                 title:row.title,
-                creator:row.username,
+                creator:row.nickname,
                 banner:row.banner,
                 time:row.time,
                 body:row.body
             }
-            //console.log(news);
             result.news.push(news);
             });
             q.on('end', () =>{
-                //console.log('News done')
                 done();
                 console.log(result);
                 return res.status(200).send(result);
