@@ -28,7 +28,7 @@ router.get('/news',(req,res,next) =>{
                 banner:row.banner,
                 time:row.time
             }
-            console.loh(news);
+            console.log(news);
             result.news.push(news);
             });
             q.on('end', () =>{
