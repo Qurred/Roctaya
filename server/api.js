@@ -8,32 +8,33 @@ const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET; //Not the best way, rainbow atk is possible still
 var client = null; 
 
-router.get('/news',(req,res,next) =>{
-    //Gets all news from database
-    var news = [];
-    /**
-     * format:{
-     *  date:'',
-     *  title:'',
-     *  text:''
-     * }
-     * 
-     * Should we add more? like offset or a link to next ones?
-     * Should we limit the given result to... 5 or something?
-     */
-
-    for(var i = 0; i < 10; i++){
-        news.push({
-            date: 'testdate',
-            title: `Test Title: ${i}`,
-            text:`Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent fermentum varius convallis. Suspendisse ut risus sed felis gravida interdum eget in ipsum. Duis ultrices purus ac congue hendrerit. Praesent eros turpis, dignissim vel fringilla a, auctor at lorem. Sed ac quam nec ante rhoncus posuere volutpat sit amet mi. Praesent at ligula lacus. Sed fermentum sed arcu non commodo.
-
-Donec aliquet imperdiet eros, quis tristique arcu pulvinar id. Suspendisse scelerisque sagittis porttitor. Aliquam et leo at ex ornare malesuada ut vel nunc. In dolor elit, commodo quis lacus at, mattis euismod sem. Nulla malesuada augue a tellus viverra, nec pharetra sem tincidunt. Curabitur quis maximus libero, a elementum velit. Vestibulum et ex ante. Sed id libero sit amet justo ultrices luctus eu at diam. Duis nec rhoncus odio. Curabitur egestas orci diam. Duis aliquam ligula blandit porttitor pharetra. Curabitur vitae suscipit sapien. Morbi et ipsum consectetur, sodales ante ac, egestas risus. Donec malesuada luctus ligula, eu vehicula dui.
-
-Nullam vestibulum lacus eget posuere feugiat. Vestibulum tincidunt neque vitae ullamcorper varius. Proin hendrerit lectus mi, sodales bibendum velit sagittis ac. Morbi eget purus eget mauris convallis fringilla sit amet nec libero. Integer consequat ullamcorper turpis, vel venenatis leo. Mauris luctus mi vel erat consectetur convallis. Nulla venenatis ultrices metus, ut convallis felis placerat eu. Fusce semper diam nibh, eget vulputate justo euismod ac.`
-        });
+router.get('/news/:offset',(req,res,next) =>{
+    let result = {
+        offset:0,
+        news:[]
     }
-    return res.status(200).send(news);
+    pg.connect(pgConnectionString, (err, client, done) => {
+        if(err) {
+            done();
+            console.log(`Signin`,err);
+            return res.status(500).json({message: `Internal error`});
+        }
+        const q = client.query("SELECT N.title, N.body, N.banner, N.time::timestamp::date, P.username FROM news as N, player as P WHERE N.creator_id = P.id ORDER BY N.id DESC LIMIT 5 OFFSET $1;",
+        [req.params.offset?req.params.offset:0]);            
+        q.on('row', (row) =>{
+            let news = {
+                title:row.title,
+                creator:row.username,
+                banner:row.banner,
+                time:row.time
+            }
+            result.news.push(news);
+            });
+            q.on('end', () =>{
+                done();
+            });
+        });
+    return res.status(200).send(result);
 });
 
 router.post('/signup',(req,res,next) =>{
