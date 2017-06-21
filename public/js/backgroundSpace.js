@@ -2,9 +2,10 @@
 let width = window.innerWidth;
 let height = window.innerHeight;
 let extraSpace = 20;
-let targetAmount = 180;
+let targetAmount = 380;
 let dustParticles = [];
 let canvas,ctx;
+let bgColor = '#070121';
 
 //Variables for fps limiting
 let targetFps = 28;
@@ -26,6 +27,7 @@ function initBackground(){
     canvas.height = height;
     //Now the 2d context
     ctx = canvas.getContext('2d');
+ //   ctx.globalCompositeOperation = "lighter";
     //Time for simple background and square for now
     initDust();
     mainAnimation();
@@ -33,7 +35,7 @@ function initBackground(){
 
 function mainAnimation(){
     //Should we move this to another function?
-    ctx.fillStyle = '#070121';
+    ctx.fillStyle = bgColor;
     ctx.fillRect(0,0,width,height);
 
     updateParticles();
@@ -49,7 +51,7 @@ function updateParticles(){
 
 
 function drawDust(){
-    ctx.fillStyle = '#FFFFFF';
+  //  ctx.fillStyle =bgColor;
     for(let i = 0; i < dustParticles.length; i++){
         dustParticles[i].show();
     }
@@ -68,8 +70,13 @@ function dustParticle(){
     }
 
     this.show = function(){
+        this.grad=ctx.createRadialGradient( this.x, this.y, this.r, this.x, this.y, 0 );
+        this.grad.addColorStop(1,'rgba(202, 186, 135, 0.473)');
+        this.grad.addColorStop(0,'rgba(202, 186, 135, 0.047)');
+
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
+        ctx.fillStyle = this.grad;
         ctx.fill();
     }
 
