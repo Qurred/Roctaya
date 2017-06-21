@@ -2,7 +2,7 @@
 let width = window.innerWidth;
 let height = window.innerHeight;
 let extraSpace = 20;
-let targetAmount = 380;
+let targetAmount = 120;
 let dustParticles = [];
 let canvas,ctx;
 let bgColor = '#070121';
@@ -70,6 +70,7 @@ function dustParticle(){
     }
 
     this.show = function(){
+        ctx.save();
         this.gradient=ctx.createRadialGradient( this.x, this.y, this.r, this.x, this.y, 0 );
         this.gradient.addColorStop(1,'rgba(206, 231, 252, 0.54)');
         this.gradient.addColorStop(0,'rgba(206, 231, 252, 0.03)');
@@ -78,6 +79,7 @@ function dustParticle(){
         ctx.arc(this.x, this.y, this.r, 0, 2 * Math.PI);
         ctx.fillStyle = this.gradient;
         ctx.fill();
+        ctx.restore();
     }
 
 
