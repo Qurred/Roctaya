@@ -20,7 +20,7 @@ router.get('/news',(req,res,next) =>{
             return res.status(500).json({message: `Internal error`});
         }
         const q = client.query("SELECT N.title, N.body, N.banner, N.time::timestamp::date, P.username FROM news as N, player as P WHERE N.creator_id = P.id ORDER BY N.id DESC LIMIT 5 OFFSET $1;",
-        [req.params.offset?req.params.offset:0]);            
+        [req.query.offset?req.query.offset:0]);            
         q.on('row', (row) =>{
             let news = {
                 title:row.title,
