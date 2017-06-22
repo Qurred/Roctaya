@@ -27,7 +27,7 @@ function initBackground(){
     canvas.height = height;
     //Now the 2d context
     ctx = canvas.getContext('2d');
- //   ctx.globalCompositeOperation = "lighter";
+    ctx.globalCompositeOperation = "lighter";
     //Time for simple background and square for now
     initDust();
     mainAnimation();

@@ -1,47 +1,49 @@
 .mainDiv {
-    background-color: bisque;
+    /*background-color: bisque;*/
     border-style: solid;
-    border-radius: 15px;
-    width: 66vw;
-    height: 66vh;
-    
+    border-radius: 50% / 30%;
+    width: 33vw;
+    height: 44vh;
+    background: radial-gradient(circle, rgba(1, 202, 17,1), rgba(0, 76, 6, 1));
 	position: absolute;
 	top:0;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	margin: auto;
-    -webkit-animation-duration: 10s;
-    animation-duration: 10s;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
-
+    overflow: hidden;
 }
 h1 {
-    font-size:6vh;
+    top:0;
+    left: 0;
+    margin:auto;
+    margin-top: 7vh;
+    font-size:10vh;
     text-align: center;
     vertical-align: 0;
+    text-decoration: none;
+    width: 70vw;
+    -webkit-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
+    -moz-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
+    -ms-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
+    -o-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
+    transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
+
 }
 
 .info{
-    float: left;
+    /*float: left;*/
     margin: 0;
     padding: 3px;
-    width: 45%;
+    width: 65%;
 }
 
 .info h3{
     font-size: 10px;
-}
-
-.login{
-    text-align: center;
-    float: right;
-    background-color: azure;
-    margin: 5px 10px 5px 0 ;
-    padding: 3px;
-    height: 45vh;
-    width: 45%;
 }
 
 @-webkit-keyframes fadeIn {
