@@ -11,7 +11,7 @@
     "build": "ng build",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod"
+    "postinstall": "ng build"
   },
   "author": "",
   "license": "ISC",

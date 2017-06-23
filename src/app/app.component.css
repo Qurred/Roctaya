@@ -3,7 +3,7 @@
     border-style: solid;
     /*border-radius: 50% / 30%;*/
     border-width: 25px;
-    border-image: url("./assets/sprites/misc/vine.png") 25 repeat;
+    border-image: url("../assets/sprites/misc/vine.png") 25 repeat;
     width: 33vw;
     height: 44vh;
     background: radial-gradient(circle, rgba(1, 202, 17,1), rgba(0, 76, 6, 1));
