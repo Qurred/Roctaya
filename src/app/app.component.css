@@ -4,8 +4,10 @@
     /*border-radius: 50% / 30%;*/
     border-width: 25px;
     border-image: url("./../assets/misc/vine.png") 25  fill repeat round;
-    width: 33vw;
-    height: 33vh;
+    /*width: 33vw;
+    height: 33vh;*/
+    width: 550px;
+    height: 325px;
     /*background: radial-gradient(circle, rgba(1, 202, 17,1), rgba(0, 76, 6, 1));*/
 	position: absolute;
 	top:0;
@@ -17,7 +19,7 @@
     animation-duration: 1s;
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 h1 {
     top:0;
@@ -38,16 +40,32 @@ h1 {
 }
 
 .info{
-    /*float: left;*/
+    float: left;
     color: #fff;
     font-size: 22px;
     margin: 0;
-    padding: 2% 5%;
-    /*width: 80%;*/
+    padding: 2% 1%;
+    width: 55%;
 }
 
 .info h3{
     font-size: 10px;
+}
+
+.signin{
+    text-align: center;
+    height: 90%;
+    float: right;
+    padding: 1%;
+    margin:0;
+    margin-top: 2%;
+    width: 30%;
+    color:#fff;
+    /*margin:auto 0;*/
+    border-style: solid;
+    border-width: 25px;
+    border-image: url("./../assets/misc/vine.png") 25  fill repeat round;
+  
 }
 
 @-webkit-keyframes fadeIn {
