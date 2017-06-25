@@ -19,7 +19,7 @@ export class NewsListComponent implements OnInit{
     private news: News[] = [];
     constructor(private http: Http) {}
     ngOnInit(){
-        let tmp = this.http.get('http://roctaya.herokuapp.com/api/news',{'headers': new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})})
+        let tmp = this.http.get('http://roctaya.herokuapp.com/api/news')
         .map((res: Response) =>{
             const newsList = res.json().news;
             console.log(res.json());
