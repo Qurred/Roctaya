@@ -5,12 +5,15 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/signin/signin.component';
-
+import { NewsComponent } from './news/news.component';
+import { NewsListComponent } from './news/news-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    SigninComponent
+    SigninComponent,
+    NewsListComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
