@@ -9,23 +9,27 @@ import {News} from './news'
     selector: 'news-list',
     template:`
     <div>
-    
+        <app-news
+        [news]="tmp"
+        *ngFor="let tmp of news"></app-news>
     </div>
     `
 })
 export class NewsListComponent implements OnInit{
-    news: News[] = [];
+    private news: News[] = [];
     constructor(private http: Http) {}
     ngOnInit(){
-        let tmp = this.http.get('http://roctaya.herokuapp.com/api/news',{'headers': new Headers({'Content-Type': 'application/json'})})
+        let tmp = this.http.get('http://roctaya.herokuapp.com/api/news',{'headers': new Headers({'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'})})
         .map((res: Response) =>{
-            console.log(res);
             const newsList = res.json().news;
-            console.log(newsList);
+            console.log(res.json());
+            for(let msg of newsList){
+                this.news.push(new News(msg.creator,msg.title,msg.body,msg.time));
+            }
+            console.log(this.news);
         })
         .catch((error: Response) => Observable.throw(error.json()))
         .subscribe();
-        console.log('done', tmp);
     }
 
 
