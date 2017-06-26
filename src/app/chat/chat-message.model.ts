@@ -1,6 +1,6 @@
 export class ChatMessage{
     constructor(
-        public body: string,
+        public message: string,
         public sender: string
     ){}
 }

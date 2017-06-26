@@ -19,7 +19,9 @@ export class SigninComponent implements OnInit{
             this.signinForm.value.password
         ).subscribe(
             data =>{
-                console.log(data);
+                localStorage.setItem("token",data.token);
+                localStorage.setItem('nickname', data.nickname);
+                localStorage.setItem('_id',data.id);
             },
             err => console.error(err)
         );
