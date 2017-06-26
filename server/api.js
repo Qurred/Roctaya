@@ -109,7 +109,7 @@ router.post('/signin', (req, res, next) =>{
         });
     }else{
         return res.status(401).json({
-            message:'Invalid signin parameters',
+            message:'No signin parameters provided',
             status: false
         });
     }
