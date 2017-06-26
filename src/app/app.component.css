@@ -77,4 +77,12 @@ h1 {
     0% {opacity: 0;}
     100% {opacity: 1;}
 }
+
+.newslist{
+    height: 300px;
+    border-style: solid;
+    border-width: 25px;
+    border-image: url("./../assets/misc/vine.png") 25  fill repeat round;
+    overflow-y: scroll;
+}
          

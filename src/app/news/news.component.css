@@ -1,0 +1,10 @@
+h2{
+    font-size: 24px;
+    color: #333;
+}
+
+.info{
+        border-style: solid;
+        border-width: 25px;
+        border-image: url("./../../assets/misc/vine.png") 25  fill repeat round;
+}

@@ -6,6 +6,7 @@ export class News{
         public creator: number,
         public title: String,
         public body: String,
-        public time: String
+        public time: String,
+        public banner: string
     ){}
 }
