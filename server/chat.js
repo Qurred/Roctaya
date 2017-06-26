@@ -58,6 +58,10 @@ module.exports = function (http,users){
         //For loop to check if user is already online
         for(let i = 0; i < users.length; i++){
             if(users[i].id == user.id){
+                users[i].socket.emit('disconnected',{
+                sender: 'Server',
+                msg: `Dublicate loggings, disconnecting original`
+            });
                 users[i].socket.disconnect(true);
                 users.splice(i,1);
                 users.push(user);
@@ -78,7 +82,7 @@ module.exports = function (http,users){
 
         socket.on('message',(message) =>{
             console.log('Socket Message', message);
-            socket.broadcast.emit('msg',{
+            socket.broadcast.emit('message',{
                 sender: user.nickname,
                 msg: message
             });
@@ -86,7 +90,7 @@ module.exports = function (http,users){
 
         socket.on('disconnect', () =>{
             //Look for user and remove it
-            socket.broadcast.emit('msg',{
+            socket.broadcast.emit('userDisconnect',{
                 sender: 'Server',
                 msg: `User ${user.nickname} Disconnected`
             });

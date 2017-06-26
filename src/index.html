@@ -22,21 +22,5 @@
       Loading...
     </div>
     </app-root>
-    <script>
-      var socket = io('', {
-        //fix query to send out token given via auth
-        query: 'token='
-      });
-      socket.on('users', (data)=>{
-        console.log(data);
-      });
-      socket.on('message', (data) =>{
-        console.log(data);
-      });
-      socket.on('userDisconnect',(data)=>{
-        console.log(data);
-      });
-    </script>
-
 </body>
 </html>

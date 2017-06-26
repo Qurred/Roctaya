@@ -8,13 +8,15 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { NewsComponent } from './news/news.component';
 import { NewsListComponent } from './news/news-list.component';
 import { AuthService } from './auth/auth.service';
+import { ChatComponent }from './chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SigninComponent,
     NewsListComponent,
-    NewsComponent
+    NewsComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
