@@ -2,7 +2,7 @@
 let width = window.innerWidth;
 let height = window.innerHeight;
 let extraSpace = 20;
-let targetAmount = 120;
+let targetAmount = 30;
 let dustParticles = [];
 let canvas,ctx;
 let bgColor = '#070121';

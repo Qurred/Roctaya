@@ -3,7 +3,7 @@ import { Http, Response, Headers } from "@angular/http";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
 
-import { User } from './user';
+import { User } from './user.module';
 
 @Injectable()
 export class AuthService {

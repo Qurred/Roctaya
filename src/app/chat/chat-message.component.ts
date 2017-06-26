@@ -10,7 +10,7 @@ import { ChatMessage } from './chat-message.model';
     </div>
     `
 })
-export class ChatMessageComponent{
+export class ChatMessageComponent {
     @Input() msg: ChatMessage;
 
 }

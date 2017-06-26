@@ -1,63 +1,67 @@
-import {Component, OnInit} from '@angular/core';
-import {FormGroup, FormControl, Validators} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import * as io from 'socket.io-client';
 
-import { User } from './../auth/user';
+import { ChatUser } from './chat-user.module';
 import { ChatMessage } from './chat-message.model';
 @Component({
     selector: 'chat-app',
-    templateUrl:'./chat.component.html'
+    templateUrl: './chat.component.html'
 })
-export class ChatComponent implements OnInit{
+export class ChatComponent implements OnInit {
     private socket;
-    private users: User[] = [];
+    private users: ChatUser[] = [];
     private messages: ChatMessage[] = [];
     private chatForm: FormGroup;
 
     //TODO Remove Console.logs when debugging is done
-    ngOnInit(){
+    ngOnInit() {
         this.chatForm = new FormGroup({
-            message:new FormControl(null, Validators.required)
+            message: new FormControl(null, Validators.required)
         });
-        if(localStorage.getItem('token')){
+        this.messages.push(new ChatMessage('Never reveal your password or any sensitive information', 'Roctaya Admin'));
+        if (localStorage.getItem('token')) {
             this.socket = io('', {
-                query: 'token='+localStorage.getItem('token')
+                query: 'token=' + localStorage.getItem('token')
             });
-            this.socket.on('users', (data)=>{
+            this.socket.on('users', (data) => {
                 //for of loop to add new users
                 console.log(data);
             });
-            this.socket.on('message', (data) =>{
-                this.newMessage(new ChatMessage('',''));
+            this.socket.on('message', (data) => {
+                this.newMessage(new ChatMessage('', ''));
                 console.log(data);
             });
-            this.socket.on('userDisconnect',(data)=>{
+            this.socket.on('userDisconnect', (data) => {
                 this.userDisconnected();
                 console.log(data);
             });
-            this.socket.on('disconnected',(data)=>{
+            this.socket.on('disconnected', (data) => {
                 console.log(data);
             });
-        }else{
+        } else {
             console.log('No token, Please sign-in');
         }
     }
 
-  newMessage(msg: ChatMessage){
-    console.log(msg);
-  }  
-  sendMessage(msg: ChatMessage){
-    this.socket.emit('message',{
-        sender: msg.sender,
-        message: msg.message,
-        senderId: localStorage.getItem('_id')
-    } )
-  }
+    newMessage(msg: ChatMessage) {
+        this.messages.push(msg);
+        if (this.messages.length > 50) {
+            this.messages.pop();
+        }
+    }
+    sendMessage(msg: ChatMessage) {
+        this.socket.emit('message', {
+            sender: msg.sender,
+            message: msg.message,
+            senderId: localStorage.getItem('_id')
+        })
+    }
 
-  userDisconnected(){
-    console.log('user left!');
-  }
-  newUser(){
-    console.log('new user!');
-  }    
+    userDisconnected() {
+        console.log('user left!');
+    }
+    newUser() {
+        console.log('new user!');
+    }
 }
