@@ -1,6 +1,6 @@
 <h1>{{title}}</h1>
 <div class="mainDiv" onload="style.opacity='1'">
-  <div style="display: inline-block; width: 100%;">
+  <div style="display: inline-block; width: 100%;" *ngIf="!loggedin;else signedin">  
     <div class="info">
       {{info}}
     </div>
@@ -8,7 +8,12 @@
       <signin></signin>
     </div>
   </div>
-  <div class="newslist">
+</div>
+
+
+<ng-template #signedin>
+  <chat-app></chat-app> 
+   <div class="newslist">
     <news-list></news-list>
   </div>
-</div>
+</ng-template>

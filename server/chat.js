@@ -23,7 +23,7 @@ module.exports = function (http, users) {
     if (handshake) {
       jwt.verify(handshake, process.env.SECRET, function (err, result) {
         if (err) {
-          console.log('Chat', 'Error with handshake, denying connection', err); //Debug
+          console.log('Chat', 'Error with handshake, denying connection'); //Debug
           return next('Deny', false);
         } else {
           // let user = {

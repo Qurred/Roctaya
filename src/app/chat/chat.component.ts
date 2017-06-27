@@ -50,12 +50,13 @@ export class ChatComponent implements OnInit {
             this.messages.pop();
         }
     }
-    sendMessage(msg: ChatMessage) {
+    sendMessage() {
         this.socket.emit('message', {
-            sender: msg.sender,
-            message: msg.message,
+            sender: localStorage.getItem('nickname'),
+            message: this.chatForm.value.message,
             senderId: localStorage.getItem('_id')
-        })
+        });
+        this.chatForm.reset();
     }
 
     userDisconnected() {
