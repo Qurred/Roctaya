@@ -29,11 +29,11 @@ export class ChatComponent implements OnInit {
                 console.log(data);
             });
             this.socket.on('message', (data) => {
-                this.newMessage(new ChatMessage('', ''));
+                this.newMessage(new ChatMessage(data.msg.sender, data.msg.message));
                 console.log(data);
             });
             this.socket.on('userDisconnect', (data) => {
-                this.userDisconnected();
+                this.userDisconnected(new ChatMessage(data.sender,data.msg));
                 console.log(data);
             });
             this.socket.on('disconnected', (data) => {
@@ -59,8 +59,11 @@ export class ChatComponent implements OnInit {
         this.chatForm.reset();
     }
 
-    userDisconnected() {
-        console.log('user left!');
+    userDisconnected(msg: ChatMessage) {
+        this.messages.push(msg);
+        if (this.messages.length > 50) {
+            this.messages.pop();
+        }
     }
     newUser() {
         console.log('new user!');
