@@ -56,6 +56,7 @@ export class ChatComponent implements OnInit {
             message: this.chatForm.value.message,
             senderId: localStorage.getItem('_id')
         });
+        this.messages.push(new ChatMessage(this.chatForm.value.message,localStorage.getItem('nickname')));
         this.chatForm.reset();
     }
 
