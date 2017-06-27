@@ -8,7 +8,7 @@ import { User } from './user.module';
 @Injectable()
 export class AuthService {
     private user: User;
-
+    public signedin:boolean = false;
     constructor(private http: Http) {}
 
     signup(username: string, nickname: string, password: string){
@@ -33,12 +33,17 @@ export class AuthService {
 
     logout(){
         localStorage.clear();
+        this.signedin = false;
     }
 
     isSignIn(){
         const currentToken = localStorage.getItem('token');
-        if(!currentToken) {return false}
+        if(!currentToken) {
+            this.signedin = false;
+            return false
+        }
         // Current, need to add api to check
+        this.signedin = true;
         return true;
     }
 }

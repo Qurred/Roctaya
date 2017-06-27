@@ -29,11 +29,11 @@ export class ChatComponent implements OnInit {
                 console.log(data);
             });
             this.socket.on('message', (data) => {
-                this.newMessage(new ChatMessage(data.msg.sender, data.msg.message));
+                this.newMessage(new ChatMessage(data.msg.message, data.msg.sender));
                 console.log(data);
             });
             this.socket.on('userDisconnect', (data) => {
-                this.userDisconnected(new ChatMessage(data.sender,data.msg));
+                this.userDisconnected(new ChatMessage(data.msg,data.sender));
                 console.log(data);
             });
             this.socket.on('disconnected', (data) => {
