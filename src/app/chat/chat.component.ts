@@ -10,9 +10,9 @@ import { ChatMessage } from './chat-message.model';
 })
 export class ChatComponent implements OnInit {
     private socket;
-    private users: ChatUser[] = [];
-    private messages: ChatMessage[] = [];
-    private chatForm: FormGroup;
+    public users: ChatUser[] = [];
+    public messages: ChatMessage[] = [];
+    public chatForm: FormGroup;
 
     //TODO Remove Console.logs when debugging is done
     ngOnInit() {

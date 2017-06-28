@@ -15,7 +15,7 @@ import {News} from './news'
 })
 export class NewsListComponent implements OnInit{
     private offset: number;
-    private news: News[] = [];
+    public news: News[] = [];
     constructor(private http: Http) {}
     ngOnInit(){
         let tmp = this.http.get('https://roctaya.herokuapp.com/api/news')
