@@ -1,6 +1,6 @@
 {
   "name": "roctaya",
-  "version": "0.7.3",
+  "version": "0.9.3",
   "description": "Course Project for University of Turku",
   "main": "server.js",
   "scripts": {

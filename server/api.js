@@ -123,6 +123,15 @@ router.post('/signin', (req, res, next) => {
   }
 });
 
+router.get('/verify', (req, res, next) => {
+  const token = req.query.token;
+  if (!token) { return res.status(401).json({ message: 'No token provided', valid: false }); }
+  jwt.verify(token, secret, function (err, result) {
+    if (err) { return res.status(401).json({ valid: false }); }
+    return res.status(200).json({ valid: true });
+  })
+});
+
 
 //Now the middleware to verify token
 router.use(function (req, res, next) {
@@ -167,15 +176,6 @@ router.get('/characters', (req, res, next) => {
   });
 });
 
-
-router.get('/verify', (req, res, next) => {
-  const token = req.query.token;
-  if (!token) { return res.status(401).json({ message: 'No token provided', valid: false }); }
-  jwt.verify(token, secret, function (err, result) {
-    if (err) { return res.status(401).json({ valid: false }); }
-    return res.status(200).json({ valid: true });
-  })
-});
 
 router.get('/player', (req, res, next) => {
   const searchable = req.query.username;

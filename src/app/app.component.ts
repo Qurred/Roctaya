@@ -7,8 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit{
-  title = 'RocTaYa!';
-  info = 'Browser game, WIP   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus, odio at dapibus gravida, enim risus egestas tellus, in ultrices ante quam a velit.Duis nec condimentum sem. Aenean sit amet leo ullamcorper, ultrices neque sit amet, maximus nisl. Proin pulvinar efficitur sapien nec sagittis. In sit ';
+  title = 'Roctaya!';
+  info = 'Roctaya is a free turn-based online browser game. This game is a course project, so there is no gurantee that this game will be playable tomorrow. Due this project being a course project there is bugs and the security isn\'t best.';
   // loggedin: boolean = false;
 
   constructor(public authService: AuthService) { }
