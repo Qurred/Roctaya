@@ -1,13 +1,5 @@
 module.exports = function (http, users) {
-
-  /*USER MODEL FOR NOW
-  {
-      id:id,
-      nick: nickname,
-      _socket:socket
-  }
-  */
-
+  
   var users = [];
   var io = require('socket.io')(http);
   const jwt = require('jsonwebtoken');
@@ -44,7 +36,6 @@ module.exports = function (http, users) {
         nickname: result.nickname,
         socket: socket
       }
-      console.log('Chat', 'Connection', user);
     });
 
 
@@ -62,15 +53,15 @@ module.exports = function (http, users) {
       }
     }
     users.push(user);
-    console.log('Added user: ', user);
     //Gets the list of online users
     var userList = [];
     console.log('Starting to loop users')
-    for (var u in users) {
-      console.log('Adding user:',u);
+    console.log(users.length);
+    for (let i = 0; i < users.length; i++) {
+      console.log('Adding user:',users[i].id);
       userList.push({
-        id: u.id,
-        nickname: u.nickname
+        id:users[i].id,
+        nickname: users[i].nickname
       });
     }
 
