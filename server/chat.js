@@ -68,6 +68,7 @@ module.exports = function (http, users) {
       }
     }
     users.push(user);
+    
     console.log('new socket connection', user);
     //Gets the list of online users
     let userList = [];

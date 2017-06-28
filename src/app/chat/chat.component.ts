@@ -40,8 +40,6 @@ export class ChatComponent implements OnInit {
             this.socket.on('disconnected', (data) => {
                 console.log(data);
             });
-        } else {
-            console.log('No token, Please sign-in');
         }
     }
 
@@ -52,7 +50,7 @@ export class ChatComponent implements OnInit {
         }
     }
     sendMessage() {
-        if(this.chatForm.value.message.trim() === '') return;
+        if(this.chatForm.value.message !== null && this.chatForm.value.message.trim() === '') return;
         this.socket.emit('message', {
             sender: localStorage.getItem('nickname'),
             message: this.chatForm.value.message,

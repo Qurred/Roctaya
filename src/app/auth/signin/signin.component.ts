@@ -22,10 +22,10 @@ export class SigninComponent implements OnInit {
                 localStorage.setItem("token", data.token);
                 localStorage.setItem('nickname', data.nickname);
                 localStorage.setItem('_id', data.id);
-                this.authService.signedin = true;
+                this.authService.loggedIn = true;
             },
             err => console.error(err)
-            );
+        );
         this.signinForm.reset();
     }
 

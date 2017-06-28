@@ -1,4 +1,4 @@
-import { Injectable/*, EventEmitter*/ } from "@angular/core";
+import { Injectable } from "@angular/core";
 import { Http, Response, Headers } from "@angular/http";
 import 'rxjs/Rx';
 import { Observable } from "rxjs";
@@ -7,8 +7,8 @@ import { User } from './user.module';
 
 @Injectable()
 export class AuthService {
-    private user: User;
-    public signedin:boolean = false;
+    private user: User; //TODO Check later if useless
+    public loggedIn: boolean =  false;   
     constructor(private http: Http) {}
 
     signup(username: string, nickname: string, password: string){
@@ -33,17 +33,32 @@ export class AuthService {
 
     logout(){
         localStorage.clear();
-        this.signedin = false;
+        this.loggedIn = false;
     }
 
     isSignIn(){
         const currentToken = localStorage.getItem('token');
         if(!currentToken) {
-            this.signedin = false;
-            return false
+            console.log('No token, login');
+            this.loggedIn = false;
+        }else{      
+            if(this.verifyToken()){
+                this.loggedIn = true;
+            }else{
+                localStorage.clear();
+            }
         }
-        // Current, need to add api to check
-        this.signedin = true;
-        return true;
+    }
+
+    verifyToken(){
+        let result = false;
+        const headers = new Headers({'Content-Type': 'application/json'});
+        this.http.get(`https://roctaya.herokuapp.com/api/verify?token=${localStorage.getItem('token')}`,{headers: headers})
+        .map((res:Response)=>{
+            result = res.json().valid;
+        })
+        .catch((err:Response)=> Observable.throw(err.json()))
+        .subscribe();
+        return result;
     }
 }

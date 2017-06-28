@@ -9,14 +9,13 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit{
   title = 'RocTaYa!';
   info = 'Browser game, WIP   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam maximus, odio at dapibus gravida, enim risus egestas tellus, in ultrices ante quam a velit.Duis nec condimentum sem. Aenean sit amet leo ullamcorper, ultrices neque sit amet, maximus nisl. Proin pulvinar efficitur sapien nec sagittis. In sit ';
-  loggedin: boolean = false;
+  // loggedin: boolean = false;
 
-  constructor(private authService: AuthService) { }
+  constructor(public authService: AuthService) { }
 
   ngOnInit(){
     this.authService.isSignIn();
-    this.loggedin = this.authService.signedin;
+    console.log('hej');
+    // this.loggedin = this.authService.loggedIn;
   }
-
-  
 }

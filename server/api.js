@@ -34,7 +34,6 @@ router.get('/news', (req, res, next) => {
     });
     q.on('end', () => {
       done();
-      console.log(result);
       return res.status(200).send(result);
     });
   });
@@ -62,6 +61,7 @@ router.post('/signup', (req, res, next) => {
       }
       client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)', [query[0], query[1], hashed]);
       done(); //Closes the connection
+    //Should we send token here or force them to login?
       return res.status(200).json({
         message: `Signup success`,
         status: true
@@ -73,7 +73,6 @@ router.post('/signup', (req, res, next) => {
       status: false
     });
   }
-  //Should we send token here or force them to login?
 })
 
 router.post('/signin', (req, res, next) => {
@@ -166,6 +165,16 @@ router.get('/characters', (req, res, next) => {
     _characters: characters,
     status: 202
   });
+});
+
+
+router.get('/verify', (req,res,next)=>{
+   const token = req.query.token;
+   if(!token) {return res.status(401).json({message:'No token provided', valid: false});}
+   jwt.verify(token, secret, function (err, result) {
+     if(err){return res.status(401).json({valid: false});}
+     return res.status(200).json({valid: true});
+   }
 });
 
 router.get('/player', (req, res, next) => {
