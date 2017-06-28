@@ -30,12 +30,7 @@ h1 {
     text-align: center;
     vertical-align: 0;
     text-decoration: none;
-    width: 70vw;
-    -webkit-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
-    -moz-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
-    -ms-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
-    -o-transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
-    transform: perspective(6vh) rotateX(8deg) scaleY(0.8);
+    width: 100%;
 
 }
 

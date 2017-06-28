@@ -4,12 +4,12 @@ import { ChatMessage } from './chat-message.model';
 @Component({
     selector: 'chat-message',
     template: `
-    <div>
-        <p>{{msg.sender}}:<span class="messagebody">{{msg.message}}</span></p>
-    </div>
+    <li>
+        {{msg.sender}}:<span class="messagebody">{{msg.message}}</span>
+    </li>
     `,
     styles:[`
-        p{
+        li{
             color:#009900;
             font-size:20;
         }

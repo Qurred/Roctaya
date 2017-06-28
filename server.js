@@ -18,7 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(function (req, res, next) {
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-    res.header('access-Control-Allow-Origin', '*');
+    res.setHeader('access-Control-Allow-Origin', '*');
+    if (req.method === "OPTIONS") //TODO remove if-else later
+        res.send(200); //For development
+    else 
+        next();
     next();
 });
 
