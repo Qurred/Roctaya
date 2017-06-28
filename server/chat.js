@@ -25,20 +25,24 @@ module.exports = function (http, users) {
     }
   });
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //handles data traffic via socket-io
   io.on('connection', (socket) => {
-    var user = {};
-    jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
-      if (err) return;
+
+    var user = jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
+      if (err) return null;
       console.log(result);
-      user = {
+      return user = {
         id: result.id,
         nickname: result.nickname,
         socket: socket
       }
     });
-
-
+    if(!user) return;
+    console.log(user);
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
       if (users[i].id === user.id) {
