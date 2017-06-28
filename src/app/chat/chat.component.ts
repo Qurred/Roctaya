@@ -6,7 +6,8 @@ import { ChatUser } from './chat-user.module';
 import { ChatMessage } from './chat-message.model';
 @Component({
     selector: 'chat-app',
-    templateUrl: './chat.component.html'
+    templateUrl: './chat.component.html',
+    styleUrls: ['./chat.component.css']
 })
 export class ChatComponent implements OnInit {
     private socket;
@@ -21,7 +22,7 @@ export class ChatComponent implements OnInit {
         });
         this.messages.push(new ChatMessage('Never reveal your password or any sensitive information', 'Roctaya Admin'));
         if (localStorage.getItem('token')) {
-            this.socket = io('', {
+            this.socket = io('https://roctaya.herokuapp.com', {
                 query: 'token=' + localStorage.getItem('token')
             });
             this.socket.on('users', (data) => {
@@ -51,6 +52,7 @@ export class ChatComponent implements OnInit {
         }
     }
     sendMessage() {
+        if(this.chatForm.value.message.trim() === '') return;
         this.socket.emit('message', {
             sender: localStorage.getItem('nickname'),
             message: this.chatForm.value.message,

@@ -45,6 +45,7 @@ module.exports = function (http, users) {
   //handles data traffic via socket-io
   io.on('connection', (socket) => {
 
+    const user = {};
     jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
       if (err) return;
       user.id = result.id;
@@ -53,7 +54,6 @@ module.exports = function (http, users) {
       console.log('Chat', 'Connection')
     });
 
-    let user = {};
 
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
@@ -64,11 +64,10 @@ module.exports = function (http, users) {
         });
         users[i].socket.disconnect(true);
         users.splice(i, 1);
-        users.push(user);
         break;
       }
-      users.push(user);
     }
+    users.push(user);
     console.log('new socket connection', user);
     //Gets the list of online users
     let userList = [];

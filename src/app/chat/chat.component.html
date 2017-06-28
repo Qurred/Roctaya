@@ -3,6 +3,6 @@
     <chat-message [msg]="m" *ngFor="let m of messages"></chat-message>
   </ul>
   <form [formGroup]="chatForm" (ngSubmit)="sendMessage()">
-    <input type="text" id="message" class="form-control" formControlName="message">
+    <input type="text" id="message" class="form-control" formControlName="message" autocomplete="off">
   </form>
 </div>

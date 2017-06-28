@@ -1,0 +1,15 @@
+.chat{
+    background-color: #434;
+    width: 100%;
+}
+.chatmessages{
+    height: 400px;
+    overflow-y: auto;
+    align-content: bottom;
+    word-wrap: break-word;
+    padding:1px;
+    list-style-type:none;
+}
+.form-control{
+    width: 100%;
+}
