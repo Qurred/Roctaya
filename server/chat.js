@@ -25,12 +25,6 @@ module.exports = function (http, users) {
         if (err) {
           return next('Deny', false);
         } else {
-          // let user = {
-          //     id: result.id,
-          //     nickname: result.nickname,
-          //     socket:socket
-          // } //Let's do this later...
-          // users.push(user);
           next(null, true);
         }
       });
@@ -41,7 +35,7 @@ module.exports = function (http, users) {
 
   //handles data traffic via socket-io
   io.on('connection', (socket) => {
-    const user = {};
+    var user = {};
     jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
       if (err) return;
       console.log(result);
@@ -55,6 +49,7 @@ module.exports = function (http, users) {
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
       if (users[i].id === user.id) {
+        console.log('Chat', 'Removing old instance');
         users[i].socket.emit('disconnected', {
           sender: 'Server',
           msg: `Dublicate loggings, disconnecting original`
@@ -65,12 +60,12 @@ module.exports = function (http, users) {
       }
     }
     users.push(user);
-    
-    console.log('new socket connection', user);
+    console.log('Added user: ', user);
     //Gets the list of online users
-    let userList = [];
+    var userList = [];
+    console.log('Starting to loop users')
     for (var u in users) {
-      console.log(u);
+      console.log('Adding user:',u);
       userList.push({
         id: u.id,
         nickname: u.nickname

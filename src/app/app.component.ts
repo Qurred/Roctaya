@@ -15,7 +15,6 @@ export class AppComponent implements OnInit{
 
   ngOnInit(){
     this.authService.isSignIn();
-    console.log('hej');
     // this.loggedin = this.authService.loggedIn;
   }
 }

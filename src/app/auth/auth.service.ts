@@ -56,7 +56,6 @@ export class AuthService {
         this.http.get(`https://roctaya.herokuapp.com/api/verify?token=${localStorage.getItem('token')}`,{headers: headers})
         .map((res:Response)=>{
             result = res.json().valid;
-            console.log(result);
             return result;
         })
         .catch((err:Response)=> Observable.throw(err.json()))
