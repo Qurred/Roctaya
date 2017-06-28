@@ -26,9 +26,16 @@ export class ChatComponent implements OnInit {
                 query: 'token=' + localStorage.getItem('token')
             });
             this.socket.on('users', (data) => {
-                //for of loop to add new users
-                console.log(data);
+                const usersArray = data.users;
+                for(let i = 0; i < usersArray.length; i++){
+                    this.users.push(new ChatUser(usersArray[i].id,usersArray[i].nickname));
+                }
+                console.log(this.users);
             });
+            this.socket.on('newUser', (data) =>{
+                this.users.push(new ChatUser(data.id,data.nickname));
+                console.log(this.users);
+            })
             this.socket.on('message', (data) => {
                 this.newMessage(new ChatMessage(data.msg.message, data.msg.sender));
                 console.log(data);

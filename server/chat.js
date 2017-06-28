@@ -23,7 +23,6 @@ module.exports = function (http, users) {
     if (handshake) {
       jwt.verify(handshake, process.env.SECRET, function (err, result) {
         if (err) {
-          console.log('Chat', 'Error with handshake, denying connection'); //Debug
           return next('Deny', false);
         } else {
           // let user = {
@@ -32,22 +31,20 @@ module.exports = function (http, users) {
           //     socket:socket
           // } //Let's do this later...
           // users.push(user);
-          console.log('Chat', 'Middleware');
           next(null, true);
         }
       });
     } else {
-      console.log('Chat', 'Error with handshake, denying connection', handshake); //Debug
       return next('Deny', false);
     }
   });
 
   //handles data traffic via socket-io
   io.on('connection', (socket) => {
-
     const user = {};
     jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
       if (err) return;
+      console.log(result);
       user.id = result.id;
       user.nickname = result.nickname;
       user.socket = socket;
