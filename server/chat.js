@@ -39,10 +39,12 @@ module.exports = function (http, users) {
     jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
       if (err) return;
       console.log(result);
-      user.id = result.id;
-      user.nickname = result.nickname;
-      user.socket = socket;
-      console.log('Chat', 'Connection')
+      user = {
+        id: result.id,
+        nickname: result.nickname,
+        socket: socket
+      }
+      console.log('Chat', 'Connection', user);
     });
 
 
