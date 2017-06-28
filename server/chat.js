@@ -57,7 +57,7 @@ module.exports = function (http, users) {
 
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
-      if (users[i].id == user.id) {
+      if (users[i].id === user.id) {
         users[i].socket.emit('disconnected', {
           sender: 'Server',
           msg: `Dublicate loggings, disconnecting original`
@@ -69,10 +69,11 @@ module.exports = function (http, users) {
       }
       users.push(user);
     }
-
+    console.log('new socket connection', user);
     //Gets the list of online users
     let userList = [];
     for (var u in users) {
+      console.log(u);
       userList.push({
         id: u.id,
         nickname: u.nickname
