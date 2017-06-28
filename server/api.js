@@ -61,7 +61,7 @@ router.post('/signup', (req, res, next) => {
       }
       client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)', [query[0], query[1], hashed]);
       done(); //Closes the connection
-    //Should we send token here or force them to login?
+      //Should we send token here or force them to login?
       return res.status(200).json({
         message: `Signup success`,
         status: true
@@ -106,8 +106,8 @@ router.post('/signin', (req, res, next) => {
             id: row.id,
             nickname: row.nickname
           }, secret, {
-            expiresIn: 3600
-          });
+              expiresIn: 3600
+            });
         }
       });
       q.on('end', () => {
@@ -168,19 +168,19 @@ router.get('/characters', (req, res, next) => {
 });
 
 
-router.get('/verify', (req,res,next)=>{
-   const token = req.query.token;
-   if(!token) {return res.status(401).json({message:'No token provided', valid: false});}
-   jwt.verify(token, secret, function (err, result) {
-     if(err){return res.status(401).json({valid: false});}
-     return res.status(200).json({valid: true});
-   }
+router.get('/verify', (req, res, next) => {
+  const token = req.query.token;
+  if (!token) { return res.status(401).json({ message: 'No token provided', valid: false }); }
+  jwt.verify(token, secret, function (err, result) {
+    if (err) { return res.status(401).json({ valid: false }); }
+    return res.status(200).json({ valid: true });
+  })
 });
 
 router.get('/player', (req, res, next) => {
   const searchable = req.query.username;
-  if(!searchable){
-    return res.status(401).json({message:'Player not provided'});
+  if (!searchable) {
+    return res.status(401).json({ message: 'Player not provided' });
   }
   pg.connect(pgConnectionString, (err, client, done) => {
     if (err) {
@@ -191,7 +191,7 @@ router.get('/player', (req, res, next) => {
       });
     }
     const q = client.query("SELECT * FROM player where UPPER(username) = UPPER($1)", [searchable]);
-    const result ={};
+    const result = {};
     q.on('row', (row) => {
       result.id = row.id;
       result.nickname = row.nickname;
