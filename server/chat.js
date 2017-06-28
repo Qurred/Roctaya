@@ -17,6 +17,10 @@ module.exports = function (http, users) {
         if (err) {
           return next('Deny', false);
         } else {
+          socket.user={
+            id: result.id,
+            nickname: result.nickname
+          }
           next(null, true);
         }
       });
@@ -31,17 +35,19 @@ module.exports = function (http, users) {
 
   //handles data traffic via socket-io
   io.on('connection', (socket) => {
-
-    var user = jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
-      if (err) return null;
-      console.log(result);
-      return user = {
-        id: result.id,
-        nickname: result.nickname,
-        socket: socket
-      }
-    });
-    if(!user) return;
+    var user = socket.user;
+    socket.user = null;
+    user.socket = socket;
+    // var user = jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
+    //   if (err) return null;
+    //   console.log(result);
+    //   return user = {
+    //     id: result.id,
+    //     nickname: result.nickname,
+    //     socket: socket
+    //   }
+    // });
+    // if(!user) return;
     console.log(user);
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
