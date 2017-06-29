@@ -10,7 +10,7 @@ import { User } from '../user.module';
 })
 export class SigninComponent implements OnInit {
     signinForm: FormGroup;
-
+    signin: boolean = true;
     constructor(private authService: AuthService) { }
 
     signIn() {
@@ -34,5 +34,8 @@ export class SigninComponent implements OnInit {
             username: new FormControl(null, Validators.required),
             password: new FormControl(null, Validators.required)
         });
+    }
+    signupShow(){
+        alert('Nope... just testing.... Sorry ;_;');
     }
 }

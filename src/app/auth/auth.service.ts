@@ -42,21 +42,21 @@ export class AuthService {
             console.log('No token, login');
             this.loggedIn = false;
         }else{      
-            if(this.verifyToken()){
-                this.loggedIn = true;
-            }else{
-                localStorage.clear();
-            }
+            this.verifyToken();
         }
     }
 
     verifyToken(){
-        let result = false;
         const headers = new Headers({'Content-Type': 'application/json'});
         this.http.get(`https://roctaya.herokuapp.com/api/verify?token=${localStorage.getItem('token')}`,{headers: headers})
         .map((res:Response)=>{
-            result = res.json().valid;
-            return result;
+            const result = res.json().valid;
+            if(result){
+                this.loggedIn = true;
+            }else{
+                this.loggedIn = false;
+                localStorage.clear();
+            }
         })
         .catch((err:Response)=> Observable.throw(err.json()))
         .subscribe();

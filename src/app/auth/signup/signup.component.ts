@@ -16,16 +16,22 @@ export class SignUpComponent implements OnInit {
         this.signupForm = new FormGroup({
             username: new FormControl(null, Validators.required),
             nickname: new FormControl(null, Validators.required),
-            email: new FormControl(null, [
-                Validators.required,
-                Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
-            ]),
+            // email: new FormControl(null, [
+            //     Validators.required,
+            //     Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
+            // ]), //No need for email?
             password: new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(20)]),
             passwordRepeat: new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(20)])
         });
     }
 
-    passwordValidator(){
-
+    signUp(){
+        
     }
+    // passwordValidator(fg: FormGroup){
+    //     if(fg.value.password === fg.value.passwordRepeat){
+    //         return null;
+    //     }
+    //     return true;
+    // }
 }

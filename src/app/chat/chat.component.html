@@ -1,3 +1,8 @@
+<div class="users">
+  <div *ngFor="let user of users">
+    <p><b>{{user.nickname}}</b></p>
+  </div>
+</div>
 <div class="chat">
   <ul class="chatmessages">
     <chat-message [msg]="m" *ngFor="let m of messages"></chat-message>

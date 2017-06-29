@@ -30,11 +30,9 @@ export class ChatComponent implements OnInit {
                 for(let i = 0; i < usersArray.length; i++){
                     this.users.push(new ChatUser(usersArray[i].id,usersArray[i].nickname));
                 }
-                console.log(this.users);
             });
             this.socket.on('newUser', (data) =>{
                 this.users.push(new ChatUser(data.id,data.nickname));
-                console.log(this.users);
             })
             this.socket.on('message', (data) => {
                 this.newMessage(new ChatMessage(data.msg.message, data.msg.sender));
@@ -45,7 +43,10 @@ export class ChatComponent implements OnInit {
                 console.log(data);
             });
             this.socket.on('disconnected', (data) => {
-                console.log(data);
+                    //Let's be brutal
+                localStorage.clear();
+                alert(JSON.stringify(data));
+                location.reload();
             });
         }
     }
@@ -72,8 +73,9 @@ export class ChatComponent implements OnInit {
         if (this.messages.length > 50) {
             this.messages.pop();
         }
+        console.log('At the moment user removal from the list isnt working');
     }
-    newUser() {
-        console.log('new user!');
-    }
+    // newUser() {
+    //     console.log('new user!');
+    // }
 }

@@ -38,17 +38,7 @@ module.exports = function (http, users) {
     var user = socket.user;
     socket.user = null;
     user.socket = socket;
-    // var user = jwt.verify(socket.handshake.query.token, process.env.SECRET, function (err, result) {
-    //   if (err) return null;
-    //   console.log(result);
-    //   return user = {
-    //     id: result.id,
-    //     nickname: result.nickname,
-    //     socket: socket
-    //   }
-    // });
-    // if(!user) return;
-    console.log(user);
+    
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
       if (users[i].id === user.id) {
@@ -62,7 +52,9 @@ module.exports = function (http, users) {
         break;
       }
     }
+
     users.push(user);
+
     //Gets the list of online users
     var userList = [];
     console.log('Starting to loop users')
@@ -74,10 +66,14 @@ module.exports = function (http, users) {
         nickname: users[i].nickname
       });
     }
-
     socket.emit('users', {
       users: userList
     });
+
+    socket.broadcast.emit('newUser', {
+        id: user.id,
+        nickname: user.nickname
+      });
 
     socket.on('message', (message) => {
       console.log('Socket Message', message);
