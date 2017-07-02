@@ -16,10 +16,7 @@ router.get('/news', (req, res, next) => {
   pg.connect(pgConnectionString, (err, client, done) => {
     if (err) {
       done();
-      console.log(`News get`, err);
-      return res.status(500).json({
-        message: `Internal error`
-      });
+      return res.status(500).json({message: `Internal error`});
     }
     const q = client.query("SELECT N.title, N.body, N.banner, N.time::timestamp::date, P.nickname  FROM news as N, player as P WHERE N.creator_id = P.id ORDER BY N.id DESC LIMIT 5 OFFSET $1;", [req.query.offset ? req.query.offset : 0]);
     q.on('row', (row) => {
@@ -55,9 +52,7 @@ router.post('/signup', (req, res, next) => {
       if (err) {
         done();
         console.log(err);
-        return res.status(500).json({
-          message: `Internal error`
-        });
+        return res.status(500).json({message: `Internal error`});
       }
       client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)', [query[0], query[1], hashed]);
       done(); //Closes the connection

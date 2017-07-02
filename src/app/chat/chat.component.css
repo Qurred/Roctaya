@@ -1,11 +1,26 @@
+.chat-container{
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: 700px;
+    height: 400px;
+    position: absolute;
+    padding: 3px;
+    display: inline-block;
+    overflow: hidden;
+}
+
 .chat{
+    /*position: fixed;*/
+    height: 100%;
+    float: left;
     background-color: #434;
-    width: 100%;
+    width: 80%;
     vertical-align: bottom;
     position: relative;
 }
 .chatmessages{
-    height: 400px;
+    height: 85%;
     width: 100%;
     overflow-y: auto;
     align-content: bottom;
@@ -14,6 +29,17 @@
     list-style-type:none;
     display: inline-block;
 }
-.form-control{
+.messageInput{
     width: 100%;
+}
+
+.users-container{
+    /*position: absolute;
+    border-left: 2px;*/
+    color: #f4f4f4;
+    background-color: #434;
+    width: 20%;
+    height: 100%;
+    overflow-y: auto;
+    float: left;
 }

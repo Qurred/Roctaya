@@ -58,7 +58,9 @@ export class ChatComponent implements OnInit {
         }
     }
     sendMessage() {
-        if(this.chatForm.value.message !== null && this.chatForm.value.message.trim() === '') return;
+        if(this.chatForm.value.message == null || this.chatForm.value.message.trim() === '') {
+            this.chatForm.reset();
+            return;}
         this.socket.emit('message', {
             sender: localStorage.getItem('nickname'),
             message: this.chatForm.value.message,
@@ -68,12 +70,18 @@ export class ChatComponent implements OnInit {
         this.chatForm.reset();
     }
 
+    //Change this for better...
     userDisconnected(msg: ChatMessage) {
-        this.messages.push(msg);
-        if (this.messages.length > 50) {
-            this.messages.pop();
+        // this.messages.push(msg);
+        // if (this.messages.length > 50) {
+        //     this.messages.pop();
+        // }
+        for(let i = 0; i < this.users.length; i++){
+            if(this.users[i].nickname === msg.sender){
+                this.users.splice(i,1);
+            }
         }
-        console.log('At the moment user removal from the list isnt working');
+
     }
     // newUser() {
     //     console.log('new user!');

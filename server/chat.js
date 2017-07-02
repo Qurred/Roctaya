@@ -92,7 +92,7 @@ module.exports = function (http, users) {
       }
       socket.broadcast.emit('userDisconnect', {
         sender: 'Server',
-        msg: `User ${user.nickname} Disconnected`
+        msg: user.nickname
       });
     });
   });
