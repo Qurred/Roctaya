@@ -38,29 +38,60 @@ router.get('/news', (req, res, next) => {
 
 router.post('/signup', (req, res, next) => {
   if (req.body.query) {
+    //username:nickname:email:password
     var query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
-    if (query.length != 3) {
+    if (query.length != 3) { //TODO change it to 4 when database has email field
       return res.status(401).json({
         message: 'Invalid signup parameters',
         status: false
       });
     }
-    console.log(query);
-    var hashed = crypto.createHmac('sha256', hashSecret).update(query[2]).digest('hex');
-    console.log(hashed);
+    
     pg.connect(pgConnectionString, (err, client, done) => {
       if (err) {
         done();
         console.log(err);
         return res.status(500).json({message: `Internal error`});
       }
+
+      let result = {
+        username: true,
+        nickname: true,
+        email: true,
+        password: true
+      };
+
+      //Let's start by checking values
+      //Username
+      let q = client.query("SELECT * FROM player where UPPER(username) = UPPER($1)", [query[0]]);
+      q.on('row', (row)=>{
+        result.username = false;
+      })
+      //nickname
+      q = client.query("SELECT * FROM player where UPPER(nickname) = UPPER($1)", [query[1]]);
+      q.on('row', (row)=>{
+        result.nickname = false;
+      })
+      //Email //TODO uncomment when database has email
+      // q = client.query("SELECT * FROM player where UPPER(email) = UPPER($1)", [query[3]]);
+      // q.on('row', (row)=>{
+      //   result.email = false;
+      // })
+
+      //Password
+      const password = query[2] //TODO change to 3 when email is added
+      if(password.length < 6){
+        result.password = false;
+      }
+
+      if(!result.username || !result.nickname || !result.email || result.password){
+        return res.status(401).json({result});
+      }
+
+      const hashed = crypto.createHmac('sha256', hashSecret).update(password).digest('hex'); //Hashes the password
       client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)', [query[0], query[1], hashed]);
       done(); //Closes the connection
-      //Should we send token here or force them to login?
-      return res.status(200).json({
-        message: `Signup success`,
-        status: true
-      });
+      return res.status(200).json(result);
     });
   } else {
     return res.status(401).json({

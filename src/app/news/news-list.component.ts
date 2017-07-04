@@ -6,7 +6,7 @@ import {News} from './news'
 
 
 @Component({
-    selector: 'news-list',
+    selector: 'app-news-list',
     template:`
         <app-news
         [news]="tmp"
@@ -18,12 +18,12 @@ export class NewsListComponent implements OnInit{
     public news: News[] = [];
     constructor(private http: Http) {}
     ngOnInit(){
-        let tmp = this.http.get('https://roctaya.herokuapp.com/api/news')
+        const tmp = this.http.get('https://roctaya.herokuapp.com/api/news')
         .map((res: Response) =>{
             const result = res.json();
             this.offset = result.offset;
             const newsList = result.news;
-            for(let msg of newsList){
+            for(const msg of newsList){
                 this.news.push(new News(msg.creator,msg.title,msg.body,msg.time, msg.banner));
             }
         })

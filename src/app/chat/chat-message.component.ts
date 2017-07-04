@@ -2,7 +2,7 @@ import { Component, Input } from "@angular/core";
 import { ChatMessage } from './chat-message.model';
 
 @Component({
-    selector: 'chat-message',
+    selector: 'app-chat-message',
     template: `
     <li>
         {{msg.sender}}:<span class="messagebody">{{msg.message}}</span>

@@ -5,7 +5,7 @@ import * as io from 'socket.io-client';
 import { ChatUser } from './chat-user.module';
 import { ChatMessage } from './chat-message.model';
 @Component({
-    selector: 'chat-app',
+    selector: 'app-chat',
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.css']
 })
@@ -15,7 +15,6 @@ export class ChatComponent implements OnInit {
     public messages: ChatMessage[] = [];
     public chatForm: FormGroup;
 
-    //TODO Remove Console.logs when debugging is done
     ngOnInit() {
         this.chatForm = new FormGroup({
             message: new FormControl(null, Validators.required)
@@ -43,13 +42,15 @@ export class ChatComponent implements OnInit {
                 console.log(data);
             });
             this.socket.on('disconnected', (data) => {
-                    //Let's be brutal
                 localStorage.clear();
-                alert(JSON.stringify(data));
+                alert('Multiple instanses. Please Sign-in again if you wish to use this browser');
                 location.reload();
             });
         }
     }
+
+    /////////////////////////////////////////////////
+    //Chat methods
 
     newMessage(msg: ChatMessage) {
         this.messages.push(msg);
@@ -62,28 +63,19 @@ export class ChatComponent implements OnInit {
             this.chatForm.reset();
             return;}
         this.socket.emit('message', {
-            sender: localStorage.getItem('nickname'),
-            message: this.chatForm.value.message,
-            senderId: localStorage.getItem('_id')
-        });
+            message: this.chatForm.value.message
+        }); 
         this.messages.push(new ChatMessage(this.chatForm.value.message,localStorage.getItem('nickname')));
         this.chatForm.reset();
     }
-
-    //Change this for better...
     userDisconnected(msg: ChatMessage) {
-        // this.messages.push(msg);
-        // if (this.messages.length > 50) {
-        //     this.messages.pop();
-        // }
         for(let i = 0; i < this.users.length; i++){
             if(this.users[i].nickname === msg.sender){
                 this.users.splice(i,1);
             }
         }
-
     }
-    // newUser() {
-    //     console.log('new user!');
-    // }
+
+    /////End of chat methods
+
 }

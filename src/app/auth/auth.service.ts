@@ -1,14 +1,14 @@
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers } from "@angular/http";
 import 'rxjs/Rx';
-import { Observable } from "rxjs";
+import { Observable } from "rxjs"; // Make imports better, import just submodule
 
 import { User } from './user.module';
 
 @Injectable()
 export class AuthService {
-    private user: User; //TODO Check later if useless
-    public loggedIn: boolean =  false;   
+    private user: User; // TODO Check later if useless
+    public loggedIn = false;
     constructor(private http: Http) {}
 
     signup(username: string, nickname: string, password: string){

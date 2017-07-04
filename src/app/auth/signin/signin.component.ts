@@ -5,7 +5,7 @@ import { AuthService } from './../auth.service';
 import { User } from '../user.module';
 
 @Component({
-    selector: 'signin',
+    selector: 'app-signin',
     templateUrl: './signin.component.html'
 })
 export class SigninComponent implements OnInit {
