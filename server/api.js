@@ -3,10 +3,13 @@ const router = express.Router();
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
-const pgConnectionString = process.env.DATABASE_URL; // || require('../config.json').pg.URI;
+const pgConnectionString = process.env.DATABASE_URL || require('../config.json').url;
 const secret = process.env.SECRET;
 const hashSecret = process.env.HASHSECRET; //Not the best way, rainbow atk is possible still
 var client = null;
+
+// TODO Create pg pooling
+
 
 router.get('/news', (req, res, next) => {
   let result = {
