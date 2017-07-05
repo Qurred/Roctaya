@@ -1,6 +1,6 @@
 const express = require('express'),
     path = require('path'),
-    https = require('https'), //Changed to https
+    http = require('http'), 
     bodyParser = require('body-parser');
 
 //Link to api
@@ -46,7 +46,7 @@ app.get('/', (req, res) => {
 
 app.set('port', process.env.PORT || '3000');
 
-const server = https.createServer(app);
+const server = http.createServer(app);
 
 var users = [];
 
