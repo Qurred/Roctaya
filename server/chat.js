@@ -1,7 +1,7 @@
-module.exports = function (http, users) {
+module.exports = function (proto, users) {
   
   var users = [];
-  var io = require('socket.io')(http);
+  var io = require('socket.io')(proto);
   const jwt = require('jsonwebtoken');
 
   /////////////////////////////////////////////////////////
@@ -75,6 +75,9 @@ module.exports = function (http, users) {
         nickname: user.nickname
       });
 
+    
+    //All handshakes and other start things done
+
     socket.on('message', (message) => {
       console.log('Socket Message', message);
       socket.broadcast.emit('message', {
@@ -96,5 +99,4 @@ module.exports = function (http, users) {
       });
     });
   });
-
 }
