@@ -84,7 +84,8 @@ router.post('/signup', (req, res, next) => {
         result.password = false;
       }
 
-      if(!result.username || !result.nickname || !result.email || result.password){
+      if(!result.username || !result.nickname || !result.email || !result.password){
+        done();
         return res.status(401).json({result});
       }
 
