@@ -4,8 +4,8 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
 const pgConnectionString = process.env.DATABASE_URL || require('../config.json').url;
-const secret = process.env.SECRET;
-const hashSecret = process.env.HASHSECRET; //Not the best way, rainbow atk is possible still
+const secret = process.env.SECRET || require('../config.json').secret;;
+const hashSecret = process.env.HASHSECRET || require('../config.json').hash;; //Not the best way, rainbow atk is possible still
 var client = null;
 
 // TODO Create pg pooling
@@ -39,6 +39,22 @@ router.get('/news', (req, res, next) => {
   });
 });
 
+//Signup functions...
+function checkUsername(name){
+
+}
+function checkNickname(name){
+  
+}
+function checkEmail(email){
+  
+}
+function checkPassword(password){
+  
+}
+
+//Currently sending result before querys are done
+
 router.post('/signup', (req, res, next) => {
   if (req.body.query) {
     //username:nickname:email:password
@@ -66,15 +82,21 @@ router.post('/signup', (req, res, next) => {
 
       //Let's start by checking values
       //Username
-      let q = client.query("SELECT * FROM player where UPPER(username) = UPPER($1)", [query[0]]);
+      console.log("username query");
+      let q = client.query('SELECT * FROM player WHERE UPPER(username) = UPPER($1)', [query[0]]);
       q.on('row', (row)=>{
+        console.log("username found");
         result.username = false;
       })
+      // q.on('end', ()=>{
+      //   console.log('moi');
+      // })
       //nickname
-      q = client.query("SELECT * FROM player where UPPER(nickname) = UPPER($1)", [query[1]]);
+      q = client.query("SELECT * FROM player WHERE UPPER(nickname) = UPPER($1)", [query[1]]);
       q.on('row', (row)=>{
         result.nickname = false;
       })
+
       //Email //TODO uncomment when database has email
       // q = client.query("SELECT * FROM player where UPPER(email) = UPPER($1)", [query[3]]);
       // q.on('row', (row)=>{
@@ -88,10 +110,11 @@ router.post('/signup', (req, res, next) => {
       }
 
       if(!result.username || !result.nickname || !result.email || !result.password){
+        console.log('"sending"');
         done();
         return res.status(401).json({result});
       }
-
+      console.log('adding');
       const hashed = crypto.createHmac('sha256', hashSecret).update(password).digest('hex'); //Hashes the password
       client.query('INSERT INTO player(username, nickname, password) values($1,$2,$3)', [query[0], query[1], hashed]);
       done(); //Closes the connection
@@ -104,6 +127,9 @@ router.post('/signup', (req, res, next) => {
     });
   }
 })
+
+
+
 
 router.post('/signin', (req, res, next) => {
   if (req.body.query) {
