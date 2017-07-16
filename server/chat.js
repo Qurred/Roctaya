@@ -42,7 +42,6 @@ module.exports = function (proto, users) {
     //For loop to check if user is already online
     for (let i = 0; i < users.length; i++) {
       if (users[i].id === user.id) {
-        console.log('Chat', 'Removing old instance');
         users[i].socket.emit('disconnected', {
           sender: 'Server',
           msg: `Dublicate loggings, disconnecting original`
@@ -73,19 +72,41 @@ module.exports = function (proto, users) {
     socket.broadcast.emit('newUser', {
         id: user.id,
         nickname: user.nickname
-      });
+    });
+    // End of connection
 
-    
-    //All handshakes and other start things done
+    //////////////////////////////////////////////////////////////////////////////////////////
 
+    // Basic message to everyone
     socket.on('message', (message) => {
       console.log('Socket Message', message);
       socket.broadcast.emit('message', {
         sender: user.nickname,
+        senderId: user.id,
         msg: message
       });
     });
 
+    // Private message to other user
+    socket.on('pm', (data) =>{
+      const receiver = data.id;
+      for (let i = 0; i < users.length; i++) {
+        if (users[i].id === receiver) {
+          users[i].socket.emit('pm',{
+            sender: user.nickname,
+            senderId: user.id,
+            msg: data.message
+          });
+          break;
+        }//if
+      }//for
+    });
+
+    socket.on('ai-game', (data) =>{
+      //maybe we should split into files
+    });
+
+    // Basic disconnect event, removes user from the list and tells every client about it
     socket.on('disconnect', () => {
       for(let i = 0; i < users.length; i++){
         if(users[i].id == user.id){
@@ -99,4 +120,6 @@ module.exports = function (proto, users) {
       });
     });
   });
-}
+
+
+}//Module

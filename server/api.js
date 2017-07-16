@@ -3,22 +3,31 @@ const router = express.Router();
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const pg = require('pg');
-const pool = new pg.Pool();
-const pgConnectionString = process.env.DATABASE_URL || require('../config.json').url;
+const url = require('url')
+// const pgConnectionString = process.env.DATABASE_URL || require('../config.json').url;
 const secret = process.env.SECRET || require('../config.json').secret;;
 const hashSecret = process.env.HASHSECRET || require('../config.json').hash;; //Not the best way, rainbow atk is possible still
-var client = null;
+// var client = null;
+const params = url.parse(process.env.DATABASE_URL || require('../config.json').url);
+const auth = params.auth.split(':');
 
-//////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////// Make this into multiple modules
-//////////////////////////////////////////////////////////////////////////////
+const poolConfig = {
+  user: auth[0],
+  password: auth[1],
+  host: params.hostname,
+  port: params.port,
+  database: params.pathname.split('/')[1],
+  ssl: true
+}
+
+const pool = new pg.Pool(poolConfig);
 
 router.get('/news', (req, res, next) => {
   let result = {
     offset: req.query.offset ? req.query.offset : 0,
     news: []
   }
-  pg.connect(pgConnectionString, (err, client, done) => {
+  pool.connect((err, client, done) => {
     if (err) {
       done();
       return res.status(500).json({ message: `Internal error` });
@@ -51,7 +60,7 @@ router.post('/signup', (req, res, next) => {
         status: false
       });
     }
-    pg.connect(pgConnectionString, (err, client, done) => {
+    pool.connect((err, client, done) => {
       let valid = {};
       function signupCallback(err, result, value) {
         if (err) {
@@ -61,6 +70,8 @@ router.post('/signup', (req, res, next) => {
         if (Object.keys(valid).length == 4){
           //Checks if there is false values
           if (!valid.username || !valid.nickname || !valid.email || !valid.password) {
+            console.log('error', valid);
+            done();
             return res.status(401).json(valid);
           }
           const hashed = crypto.createHmac('sha256', hashSecret).update(password).digest('hex');
@@ -106,7 +117,7 @@ router.post('/signin', (req, res, next) => {
     var result = {
       message: 'Failed to signin'
     };
-    pg.connect(pgConnectionString, (err, client, done) => {
+    pool.connect(pgConnectionString, (err, client, done) => {
       if (err) {
         done();
         console.log(`Signin`, err);
@@ -201,7 +212,7 @@ router.get('/player', (req, res, next) => {
   if (!searchable) {
     return res.status(401).json({ message: 'Player not provided' });
   }
-  pg.connect(pgConnectionString, (err, client, done) => {
+  pool.connect((err, client, done) => {
     if (err) {
       done();
       console.log(`Signin`, err);
