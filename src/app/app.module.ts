@@ -11,7 +11,8 @@ import { NewsListComponent } from './news/news-list.component';
 import { AuthService } from './auth/auth.service';
 import { ChatComponent } from './chat/chat.component';
 import { ChatMessageComponent } from './chat/chat-message.component';
-
+import { CharactersComponent } from './character/characters.component';
+import { CharacterService } from "./character/characters.service";
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { ChatMessageComponent } from './chat/chat-message.component';
     NewsListComponent,
     NewsComponent,
     ChatComponent,
-    ChatMessageComponent
+    ChatMessageComponent,
+    CharactersComponent
   ],
   imports: [
     BrowserModule,
@@ -29,7 +31,7 @@ import { ChatMessageComponent } from './chat/chat-message.component';
     HttpModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService],
+  providers: [AuthService, CharacterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

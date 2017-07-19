@@ -167,7 +167,7 @@ router.get('/verify', (req, res, next) => {
 router.use(function (req, res, next) {
   //GET is using req.headers
   //POST is using body, maybe we should put post to headers also?
-  var token = req.body.token || req.headers['x-access-token']; //or should we use other name for header?
+  var token = req.body.token || req.headers['token']; //or should we use other name for header?
   if (token) {
     jwt.verify(token, secret, function (err, result) {
       if (err) {
