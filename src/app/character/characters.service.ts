@@ -16,15 +16,13 @@ export class CharacterService {
         const headers = new Headers({
             'Content-Type': 'application/json',
             'token':localStorage.getItem('token')
-        });
-        
+        }); 
         this.http.get('https://roctaya.herokuapp.com/api/characters',{headers: headers})
         .map((res: Response) =>{
             const data = res.json();
             const listOfCharacters = data.characters;
-            for (const char in listOfCharacters) {
-                console.log(char);
-               // this.chatacters.push(new Character(parseInt(char.id),char.name,"",null,""));
+            for(let i = 0; i < listOfCharacters.length; i++){
+               this.chatacters.push(new Character(parseInt(listOfCharacters[i].id),listOfCharacters[i].name,"",null,listOfCharacters[i].img_path)); 
             }
         })
         .catch((error: Response) => Observable.throw(error.json()))

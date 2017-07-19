@@ -1,0 +1,13 @@
+<div class="characters">
+    <div class="characterCircle">
+        <div class="avatarHolder" [ngStyle]="calcDeg(i)" *ngFor="let character of myCharacters; let i = index;">
+            <!-- <h4>{{character.name}}</h4> -->
+            <img class="avatar" src="./../assets/characters/{{character.avatar}}" alt="Icon">
+        </div>
+    </div>
+    <div class="characterinfo">
+        <div *ngIf="selectedCharacter != null">
+            <h4>Ei ole null</h4>    
+        </div>
+    </div>
+</div>

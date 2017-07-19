@@ -187,8 +187,22 @@ router.use(function (req, res, next) {
 });
 
 router.get('/characters', (req, res, next) => {
+  console.log(req.decoded);
+  const playerId = req.decoded.id;
+
   //Get datas from characters
   var characters = [];
+  pool.connect((err, client, done) => {
+    const q = client.query('select * from has_character where player_id = $1', [playerId], (err,result) =>{
+      console.log(playerId);
+      if(err) console.log(err);
+      if(result.rows.length == 0){
+        // initPlayerCharacters(playerId);
+      }else{
+        //Get's all characters
+      }
+    });
+  })
   //forloop
   //Add all characters
   //return characters
@@ -197,7 +211,7 @@ router.get('/characters', (req, res, next) => {
       id: i,
       name: "TEST CHARACTER",
       story: "Liiralaara",
-      img_path: "placeholder.png"
+      img_path: "placeholder.jpg"
     });
   }
   res.send({
