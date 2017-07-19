@@ -117,7 +117,7 @@ router.post('/signin', (req, res, next) => {
     var result = {
       message: 'Failed to signin'
     };
-    pool.connect(pgConnectionString, (err, client, done) => {
+    pool.connect((err, client, done) => {
       if (err) {
         done();
         console.log(`Signin`, err);
