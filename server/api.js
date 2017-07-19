@@ -201,7 +201,7 @@ router.get('/characters', (req, res, next) => {
     });
   }
   res.send({
-    _characters: characters,
+    characters: characters,
     status: 202
   });
 });

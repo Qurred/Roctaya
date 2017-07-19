@@ -6,7 +6,7 @@ export class Character{
         public name: String,
         public story: String,
         public skills: Skill[],
-        public avatarURL: String
+        public avatar: String
     ){
 
     }

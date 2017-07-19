@@ -10,7 +10,7 @@ import { Character } from "./character";
 @Injectable()
 export class CharacterService {
     constructor(private http: Http) {}
-    public chatacters: CharacterService[] = []
+    public chatacters: Character[] = []
 
     initCharacters(){
         const headers = new Headers({
@@ -20,7 +20,12 @@ export class CharacterService {
         
         this.http.get('https://roctaya.herokuapp.com/api/characters',{headers: headers})
         .map((res: Response) =>{
-            console.log(res);
+            const data = res.json();
+            const listOfCharacters = data.characters;
+            for (const char in listOfCharacters) {
+                console.log(char);
+               // this.chatacters.push(new Character(parseInt(char.id),char.name,"",null,""));
+            }
         })
         .catch((error: Response) => Observable.throw(error.json()))
         .subscribe();

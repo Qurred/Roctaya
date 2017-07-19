@@ -28,7 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // }); // Also seems like tgis aint working
 
 app.use(function (req, res, next) {
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Headers', ['Content-Type','token']); // Remove at least token when prod
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('access-Control-Allow-Origin', '*');
     if (req.method === "OPTIONS") { //TODO remove if-else later
