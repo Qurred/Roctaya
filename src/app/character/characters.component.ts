@@ -19,6 +19,18 @@ export class CharactersComponent{
         this.myCharacters = this.characterService.chatacters;
     }
 
+    setSelectedCharacter(c: Character){
+        this.selectedCharacter = c;
+        console.log(c)
+    }
+
+    isSelected(c: Character){
+        if(c == this.selectedCharacter){
+            return true;
+        }
+        return false;
+    }
+
     calcDeg(i:number){
         let style = {
             'transform': `rotate(${i * 20 + 90}deg) translate(12em) rotate(-${i * 20 + 90}deg)`

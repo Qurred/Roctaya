@@ -10,6 +10,7 @@
     overflow: hidden;
     border: 5px inset  white;
     background-color: #434;
+    z-index: 10;
 }
 
 .chat{

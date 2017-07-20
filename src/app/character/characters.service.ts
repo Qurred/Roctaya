@@ -22,7 +22,7 @@ export class CharacterService {
             const data = res.json();
             const listOfCharacters = data.characters;
             for(let i = 0; i < listOfCharacters.length; i++){
-               this.chatacters.push(new Character(parseInt(listOfCharacters[i].id),listOfCharacters[i].name,"",null,listOfCharacters[i].img_path)); 
+               this.chatacters.push(new Character(parseInt(listOfCharacters[i].id),listOfCharacters[i].name,listOfCharacters[i].story,null,listOfCharacters[i].img_path)); 
             }
         })
         .catch((error: Response) => Observable.throw(error.json()))
