@@ -24,7 +24,6 @@ router.use((req, res, next) => middleware(req, res, next, pool.secret));
 router.get('/characters', (req, res, next) => characters(req, res, next));
 router.get('/player', (req, res, next) =>player(req, res, next));
 
-
 //Just testing
 const battle = require('./game/battle');
 new battle(1,1);

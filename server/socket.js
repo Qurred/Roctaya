@@ -20,7 +20,7 @@ module.exports = function (server) {
     // Handlers
     handshake(socket, users, user);
 
-    messageHandler(socket, users);
+    messageHandler(socket, users, user);
 
     battleHandler(socket);
 
@@ -37,6 +37,5 @@ module.exports = function (server) {
         msg: user.nickname
       });
     });
-
   });// IO connection
 }//Module
