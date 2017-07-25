@@ -50,7 +50,7 @@ const server = http.createServer(app);
 
 var users = [];
 
-var chat = require('./server/chat')(server, users);
+var chat = require('./server/socket')(server, users);
 
 app.use(function (req, res, next) {
     res.redirect('/');

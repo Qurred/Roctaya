@@ -5,9 +5,6 @@ const hashSecret = process.env.HASHSECRET || require('../config.json').hash; //N
 const params = url.parse(process.env.DATABASE_URL || require('../config.json').url);
 const auth = params.auth.split(':');
 
-// Just for debugging
-console.log('database inited');
-
 const poolConfig = {
   user: auth[0],
   password: auth[1],

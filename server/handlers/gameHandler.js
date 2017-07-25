@@ -1,4 +1,4 @@
-const battle = require('./battle');
+const battle = require('../game/battle');
 const currentGames = [];
 
 module.exports = function(client){

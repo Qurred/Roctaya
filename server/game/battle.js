@@ -3,11 +3,14 @@ class Battle{
         this.teamA = teamA;
         this.teamB = teamB;
         this.events = []
-        this.printEvents();
     }
 
     printEvents(){
         console.log(this.events);
+    }
+
+    sortEvents(){
+        
     }
 }
 

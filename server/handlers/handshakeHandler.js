@@ -1,7 +1,6 @@
 
-module.exports = function(socket, users){
-    var user = socket.user;
-    socket.user = null;
+module.exports = function(socket, users, user){
+
     user.socket = socket;
 
     //For loop to check if user is already online
