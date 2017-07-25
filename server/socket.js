@@ -1,7 +1,7 @@
 
 module.exports = function (server, users) {
-  var users = [];
-  var io = require('socket.io')(server);
+  let users = [];
+  const io = require('socket.io')(server);
   // Handlers
   const battleHandler = require('./handlers/gameHandler'),
     auth = require('./handlers/authorisationHandler'),
@@ -14,11 +14,11 @@ module.exports = function (server, users) {
   //handles data traffic via socket-io
   io.on('connection', (socket) => {
 
-    var user = socket.user;
+    let user = socket.user;
     socket.user = null;
 
     // Handlers
-    handshake(socket, users);
+    handshake(socket, users, user);
 
     messageHandler(socket, users);
 
