@@ -11,9 +11,9 @@
     "build": "ng build --watch",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "ng build --prod"
+    "postinstall": "ng build"
   },
-  "author": "",
+  "author": "Juho Kuusinen",
   "license": "ISC",
   "dependencies": {
     "@angular/cli": "1.0.1",
