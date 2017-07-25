@@ -48,9 +48,9 @@ app.set('port', process.env.PORT || '3000');
 
 const server = http.createServer(app);
 
-var users = [];
+// var users = [];
 
-var chat = require('./server/socket')(server, users);
+var chat = require('./server/socket')(server);
 
 app.use(function (req, res, next) {
     res.redirect('/');

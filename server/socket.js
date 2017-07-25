@@ -1,5 +1,5 @@
 
-module.exports = function (server, users) {
+module.exports = function (server) {
   let users = [];
   const io = require('socket.io')(server);
   // Handlers
