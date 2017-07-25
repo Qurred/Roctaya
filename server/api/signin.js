@@ -1,8 +1,10 @@
 const pool = require('../database').pool;
+const crypto = require('crypto');
+const jwt = require('jsonwebtoken');
 
 // TODO upgrate https://node-postgres.com/guides/upgrading
 
-module.exports = function (req, res, next) {
+module.exports = function (req, res, next, secret, hashSecret) {
     if (req.body.query) {
         const query = Buffer.from(req.body.query, `base64`).toString('ascii').split(":");
         if (query.length != 2) {

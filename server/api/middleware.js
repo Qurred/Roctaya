@@ -4,6 +4,7 @@ module.exports = function (req, res, next, secret) {
     //GET is using req.headers
     //POST is using body, maybe we should put post to headers also?
     var token = req.body.token || req.headers['token']; //or should we use other name for header?
+    console.log(secret);
     if (token) {
         jwt.verify(token, secret, function (err, result) {
             if (err) {

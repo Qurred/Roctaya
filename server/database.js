@@ -19,6 +19,6 @@ const poolConfig = {
 
 const pool = new pg.Pool(poolConfig);
 
+exports.hashSecret = hashSecret;
 exports.secret = secret;
-
 exports.pool = pool;

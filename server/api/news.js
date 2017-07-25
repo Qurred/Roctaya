@@ -3,6 +3,7 @@ const pool = require('../database').pool;
 // TODO upgrate https://node-postgres.com/guides/upgrading
 
 module.exports = function (req, res, next) {
+    console.log('news!')
     let result = {
         offset: req.query.offset ? req.query.offset : 0,
         news: []

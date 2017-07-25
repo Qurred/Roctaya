@@ -1,5 +1,6 @@
 class Team{
-    constructor(){
-        
+    constructor(playerId, characters){
+        this.playerId = playerId;
+        this.characters = characters;
     }
 }
