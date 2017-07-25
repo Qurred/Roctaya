@@ -82,7 +82,7 @@ module.exports = function (server, users) {
     // End of connection
 
     //////////////////////////////////////////////////////////////////////////////////////////
-    battleHandler(client);
+    battleHandler(socket);
     // Basic message to everyone
     socket.on('message', (message) => {
       console.log('Socket Message', message);
