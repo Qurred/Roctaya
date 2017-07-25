@@ -21,7 +21,6 @@ export class CharactersComponent{
 
     setSelectedCharacter(c: Character){
         this.selectedCharacter = c;
-        console.log(c)
     }
 
     isSelected(c: Character){
@@ -33,7 +32,7 @@ export class CharactersComponent{
 
     calcDeg(i:number){
         let style = {
-            'transform': `rotate(${i * 20 + 90}deg) translate(12em) rotate(-${i * 20 + 90}deg)`
+            'transform': `rotate(${i * 25.7 + 90}deg) translate(12em) rotate(-${i * 25.7 + 90}deg)`
         }
         return style;
     }

@@ -19,8 +19,9 @@ export class CharacterService {
         }); 
         this.http.get('https://roctaya.herokuapp.com/api/characters',{headers: headers})
         .map((res: Response) =>{
-            const data = res.json();
-            const listOfCharacters = data.characters;
+            const listOfCharacters = res.json();
+            // const listOfCharacters = data.characters;
+            // console.log(data);
             for(let i = 0; i < listOfCharacters.length; i++){
                this.chatacters.push(new Character(parseInt(listOfCharacters[i].id),listOfCharacters[i].name,listOfCharacters[i].story,null,listOfCharacters[i].img_path)); 
             }
