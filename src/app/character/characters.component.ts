@@ -32,7 +32,7 @@ export class CharactersComponent{
 
     calcDeg(i:number){
         let style = {
-            'transform': `rotate(${i * 25.7 + 90}deg) translate(12em) rotate(-${i * 25.7 + 90}deg)`
+            'transform': `rotate(${i * 25.71 + 90}deg) translate(192px) rotate(-${i * 25.71 + 90}deg)`
         }
         return style;
     }

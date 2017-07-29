@@ -22,10 +22,15 @@ router.use((req, res, next) => middleware(req, res, next, pool.secret));
 
 // Behind middleware
 router.get('/characters', (req, res, next) => characters(req, res, next));
-router.get('/player', (req, res, next) =>player(req, res, next));
+router.get('/player', (req, res, next) => player(req, res, next));
 
 //Just testing
-const battle = require('./game/battle');
-new battle(1,1);
+//  const battle = require('./game/battle');
+//  new battle(1,1);
+// const util = require('./game/util');
+// let chars = []
+// for(let i = 2; i < 6; i++){
+//     chars.push(util.createCharracter(1,i));
+// }
 
 module.exports = router;

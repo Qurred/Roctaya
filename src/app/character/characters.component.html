@@ -1,4 +1,4 @@
-<div class="characters">
+<div class="container">
     <div class="characterCircle">
         <img class="selectedAvatar" *ngIf="selectedCharacter" src="./../assets/characters/{{selectedCharacter.avatar}}">
         <div class="avatarHolder" [ngStyle]="calcDeg(i)"
@@ -6,9 +6,10 @@
          (click)="setSelectedCharacter(character)"
          [ngClass]="{selected: isSelected(character)}"
         >
-            <img class="avatar" src="./../assets/characters/{{character.avatar}}" alt="Icon">
+             <img class="avatar" src="./../assets/characters/{{character.avatar}}" alt="Icon"> 
         </div>
     </div>
+     <div id="overlay"></div> 
     <div class="characterinfo">
         <div *ngIf="selectedCharacter">
             <h3>{{selectedCharacter.name}}</h3>

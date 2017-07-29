@@ -4,3 +4,5 @@ class Team{
         this.characters = characters;
     }
 }
+
+module.exports = Team;
