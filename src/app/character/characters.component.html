@@ -1,22 +1,31 @@
 <div class="container">
     <div class="characterCircle">
+        <!-- Here we could create 'curtain'-effect  -->
         <img class="selectedAvatar" *ngIf="selectedCharacter" src="./../assets/characters/{{selectedCharacter.avatar}}">
-        <div class="avatarHolder" [ngStyle]="calcDeg(i)"
-         *ngFor="let character of myCharacters; let i = index;"
-         (click)="setSelectedCharacter(character)"
-         [ngClass]="{selected: isSelected(character)}"
-        >
-             <img class="avatar" src="./../assets/characters/{{character.avatar}}" alt="Icon"> 
+        <div class="avatarHolder" [ngStyle]="calcDeg(i)" *ngFor="let character of myCharacters; let i = index;" (click)="setSelectedCharacter(character)"
+            [ngClass]="{selected: isSelected(character)}">
+            <img class="avatar" src="./../assets/characters/{{character.avatar}}" alt="Icon">
         </div>
     </div>
-     <div id="overlay"></div> 
+    <div id="overlay"></div>
     <div class="characterinfo">
         <div *ngIf="selectedCharacter">
-            <h3>{{selectedCharacter.name}}</h3>
-            <p>{{selectedCharacter.story}}</p>
+            <p id="name">{{selectedCharacter.name}}</p>
+            <p id="title">{{selectedCharacter.title}}</p>
+            <!-- Maybe we should nest story into div  -->
+            <p id="story">{{selectedCharacter.story}}</p>
             <div class="stats">
-                tässä pitäisi olla dataa    
-            </div>    
+                <ul id="statList">
+                    <li>Level: {{calcLevel()}}</li>
+                    <li>Health: {{selectedCharacter.health}}</li>
+                    <li>Mana: {{selectedCharacter.mana}}</li>
+                    <li>Attack: {{selectedCharacter.attack}}</li>
+                    <li>Defence: {{selectedCharacter.defence}}</li>
+                    <li>Speed: {{selectedCharacter.speed}}</li>
+                    <li>Intellect: {{selectedCharacter.intellect}}</li>
+                    <li>Sanity: {{selectedCharacter.sanity}}</li>
+                </ul>
+            </div>
         </div>
     </div>
 </div>

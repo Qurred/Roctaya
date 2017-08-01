@@ -28,6 +28,7 @@ class Character{
         this.sanity +=  Math.floor(this.sanity*scale * level);
         // console.log(level);
     }
+    
 }
 
 module.exports = Character;

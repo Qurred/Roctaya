@@ -10,7 +10,7 @@ import { Character } from "./character";
 @Injectable()
 export class CharacterService {
     constructor(private http: Http) {}
-    public chatacters: Character[] = []
+    public characters: Character[] = []
 
     initCharacters(){
         const headers = new Headers({
@@ -20,10 +20,22 @@ export class CharacterService {
         this.http.get('https://roctaya.herokuapp.com/api/characters',{headers: headers})
         .map((res: Response) =>{
             const listOfCharacters = res.json();
-            // const listOfCharacters = data.characters;
-            // console.log(data);
             for(let i = 0; i < listOfCharacters.length; i++){
-               this.chatacters.push(new Character(parseInt(listOfCharacters[i].id),listOfCharacters[i].name,listOfCharacters[i].story,null,listOfCharacters[i].img_path)); 
+               this.characters.push(new Character(
+                   parseInt(listOfCharacters[i].id),
+                   listOfCharacters[i].name,
+                   listOfCharacters[i].story,
+                   null, //Because we currently dont have anything to model skill
+                   listOfCharacters[i].img_path,
+                   parseInt(listOfCharacters[i].health),
+                   parseInt(listOfCharacters[i].mana),
+                   parseInt(listOfCharacters[i].defence),
+                   parseInt(listOfCharacters[i].speed),
+                   parseInt(listOfCharacters[i].attack),
+                   parseInt(listOfCharacters[i].intellect),
+                   parseInt(listOfCharacters[i].sanity),
+                   parseInt(listOfCharacters[i].xp)
+                )); 
             }
         })
         .catch((error: Response) => Observable.throw(error.json()))
@@ -31,6 +43,10 @@ export class CharacterService {
     }
 
     updateCharacter(id: number, xp: number){
-        
+        for(let i = 0; i < this.characters.length; i++){
+            if(this.characters[i].id === id){
+                this.characters[i].xp += xp;
+            }
+        }
     }
 }

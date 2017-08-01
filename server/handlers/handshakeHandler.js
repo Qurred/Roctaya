@@ -20,8 +20,6 @@ module.exports = function(socket, users, user){
 
     //Gets the list of online users
     var userList = [];
-    console.log('Starting to loop users')
-    console.log(users.length);
     for (let i = 0; i < users.length; i++) {
       console.log('Adding user:', users[i].id);
       userList.push({

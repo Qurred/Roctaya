@@ -27,10 +27,10 @@ router.get('/player', (req, res, next) => player(req, res, next));
 //Just testing
 //  const battle = require('./game/battle');
 //  new battle(1,1);
-// const util = require('./game/util');
-// let chars = []
-// for(let i = 2; i < 6; i++){
-//     chars.push(util.createCharracter(1,i));
-// }
+const util = require('./game/util');
+let chars = []
+for(let i = 2; i < 6; i++){
+    chars.push(util.createCharracter(3,i));
+}
 
 module.exports = router;

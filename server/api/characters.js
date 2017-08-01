@@ -14,10 +14,10 @@ module.exports = function (req, res, next) {
                     client.query('INSERT INTO has_character (player_id, character_id)' +
                         'values ($1,1), ($1,2), ($1,3), ($1,4), ($1,5), ($1,6), ($1,7), ($1,8);', [playerId]);
                     done();
-                    //Create a way to get now characters
                 } else {
                     for (let i = 0; i < result.rows.length; i++) {
                         let character = result.rows[i];
+                        // Maybe we could update stats with level
                         characters.push({
                             id: character.id,
                             name: character.name,
@@ -30,7 +30,8 @@ module.exports = function (req, res, next) {
                             attack: character.attack,
                             intellect: character.intellect,
                             sanity: character.sanity,
-                            xp: character.xp
+                            xp: character.xp,
+                            title:character.title
                         });
                     }
                     done();

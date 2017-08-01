@@ -16,7 +16,7 @@ export class CharactersComponent{
     constructor(private characterService: CharacterService) {}
     ngOnInit() {
         this.characterService.initCharacters();
-        this.myCharacters = this.characterService.chatacters;
+        this.myCharacters = this.characterService.characters;
     }
 
     setSelectedCharacter(c: Character){
@@ -36,5 +36,15 @@ export class CharactersComponent{
         }
         return style;
     }
+
+    calcLevel(){
+        return Math.floor((2/9) * Math.sqrt(this.selectedCharacter.xp));
+    }
+
+    // updateStat(stat){
+    //     const scale = 3/39;
+    //     console.log(this.selectedCharacter[stat] + Math.floor(this.selectedCharacter[stat]*scale * (Math.floor((2/9) * Math.sqrt(this.selectedCharacter.xp)))));
+        
+    // }
 
 }

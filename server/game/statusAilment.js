@@ -9,10 +9,7 @@ class StatusAilment{
         this.amount = amount;
     }
 
-    update(){
-        // Here we should do everything needed for effect if DoT
-        duration--;
-    }
+    update(){}
 
 
 }
