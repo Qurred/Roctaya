@@ -1,24 +1,29 @@
 const util = require('./util');
+const team = require('./team');
 
 class Battle{
     constructor(teamA, teamB){
-        this.teamA = teamA;
-        this.teamB = teamB;
+        this.teamA;
+        this.teamB;
         this.events = [];
         this.turn = [];
-        //Just for testing purpose
-        for(let i = 0; i < 8; i++){
-            this.turn.push({
-                skill:{
-                    priority: 100 * Math.random()
-                },
-                character:{
-                    speed:10** Math.random()
-                }
-            })
+    }
+
+    createTeam(player_id, characters){
+        let chars = [];
+        for(let i = 0; i < characters.length; i++){
+            chars.push(util.createCharracter(player_id,characters[i]));
         }
-        this.sortTurnEvents();
-        this.executeTurnEvents();
+        if(!this.teamA){
+            this.teamA = new team(player_id,chars);
+        }else{
+            this.teamB = new team(player_id,chars);
+            startGame();
+        }
+    }
+
+    startGame(){
+        console.log('Both teams ready');
     }
 
     addTurnEvents(data){
@@ -70,6 +75,9 @@ class Battle{
         this.turn = [];
     }
 
+    isOver(){
+        
+    }
 
 }
 

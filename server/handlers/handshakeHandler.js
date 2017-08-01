@@ -21,7 +21,6 @@ module.exports = function(socket, users, user){
     //Gets the list of online users
     var userList = [];
     for (let i = 0; i < users.length; i++) {
-      console.log('Adding user:', users[i].id);
       userList.push({
         id: users[i].id,
         nickname: users[i].nickname

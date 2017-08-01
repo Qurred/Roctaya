@@ -21,7 +21,7 @@ export class ChatComponent implements OnInit {
         });
         this.messages.push(new ChatMessage('Never reveal your password or any sensitive information', 'Roctaya Admin'));
         if (localStorage.getItem('token')) {
-            this.socket = io('https://roctaya.herokuapp.com', {
+            this.socket = io({ //First parameter before {} was url to heroku
                 query: 'token=' + localStorage.getItem('token')
             });
             this.socket.on('users', (data) => {

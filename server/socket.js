@@ -19,6 +19,7 @@ module.exports = function (server) {
 
     // Handlers
     handshake(socket, users, user);
+
     messageHandler(socket, users, user);
     battleHandler(socket, users, user);
     disconnectHandler(socket, users, user);

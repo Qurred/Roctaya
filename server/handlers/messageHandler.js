@@ -37,14 +37,13 @@ filterBadWords = function (msg) {
     'test'
   ];
   const rgx = new RegExp(listOfWords.join("|"), "gi");
-  return msg.replace(rgx, "****");
+  return msg.message.replace(rgx, "****");
 }
 
 validateMessage = function (msg) {
-  if (msg.trim() !== '') {
+  if (msg.message.trim() !== '') {
     return true;
   }
-  console.log('msg was empty', msg);
   return false;
 }
 
