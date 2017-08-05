@@ -8,11 +8,13 @@ import { SigninComponent } from './auth/signin/signin.component';
 import { SignUpComponent } from './auth/signup/signup.component';
 import { NewsComponent } from './news/news.component';
 import { NewsListComponent } from './news/news-list.component';
-import { AuthService } from './auth/auth.service';
+import { AuthService } from './services/auth.service';
 import { ChatComponent } from './chat/chat.component';
 import { ChatMessageComponent } from './chat/chat-message.component';
 import { CharactersComponent } from './character/characters.component';
-import { CharacterService } from "./character/characters.service";
+import { CharacterService } from "./services/characters.service";
+import { SocketService } from "./services/socket.service";
+import { CharacterSelectionComponent } from "./battle/characterSelection.component";
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { CharacterService } from "./character/characters.service";
     NewsComponent,
     ChatComponent,
     ChatMessageComponent,
-    CharactersComponent
+    CharactersComponent,
+    CharacterSelectionComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +34,7 @@ import { CharacterService } from "./character/characters.service";
     HttpModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService, CharacterService],
+  providers: [AuthService, CharacterService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

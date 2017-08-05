@@ -1,9 +1,8 @@
 import { Injectable } from "@angular/core";
 import { Http, Response, Headers } from "@angular/http";
-import 'rxjs/Rx';
-import { Observable } from "rxjs"; // Make imports better, import just submodule
+import { Observable } from "rxjs/Observable";
 
-import { Character } from "./character";
+import { Character } from "./../character/character";
 
 /* Service that holds metadate and other needed information*/
 

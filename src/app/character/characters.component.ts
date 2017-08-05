@@ -1,9 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Http, Response, Headers } from "@angular/http";
-import 'rxjs/Rx';
-import { Observable } from "rxjs";
+import { Observable } from "rxjs/Observable";
 import { Character } from './character';
-import { CharacterService } from "./characters.service";
+import { CharacterService } from "./../services/characters.service";
 
 @Component({
     selector: 'app-characters',
@@ -14,6 +13,7 @@ export class CharactersComponent{
     public myCharacters: Character[] = [];
     public selectedCharacter: Character;
     constructor(private characterService: CharacterService) {}
+
     ngOnInit() {
         this.characterService.initCharacters();
         this.myCharacters = this.characterService.characters;

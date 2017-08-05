@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { SocketService } from "./../services/socket.service";
 import * as io from 'socket.io-client';
 
 import { ChatUser } from './chat-user.module';
 import { ChatMessage } from './chat-message.model';
+
+// TODO: When this is ready, remove all console.logs
+
 @Component({
     selector: 'app-chat',
     templateUrl: './chat.component.html',
@@ -15,15 +19,19 @@ export class ChatComponent implements OnInit {
     public messages: ChatMessage[] = [];
     public chatForm: FormGroup;
 
+    constructor(public ss: SocketService){}
+
     ngOnInit() {
         this.chatForm = new FormGroup({
             message: new FormControl(null, Validators.required)
         });
         this.messages.push(new ChatMessage('Never reveal your password or any sensitive information', 'Roctaya Admin'));
         if (localStorage.getItem('token')) {
-            this.socket = io({ //First parameter before {} was url to heroku
-                query: 'token=' + localStorage.getItem('token')
-            });
+            // this.socket = io({ //First parameter before {} was url to heroku
+            //     query: 'token=' + localStorage.getItem('token')
+            // });
+            this.ss.connectSocket();
+            this.socket = this.ss.socket;
             this.socket.on('users', (data) => {
                 const usersArray = data.users;
                 for(let i = 0; i < usersArray.length; i++){
@@ -34,7 +42,7 @@ export class ChatComponent implements OnInit {
                 this.users.push(new ChatUser(data.id,data.nickname));
             })
             this.socket.on('message', (data) => {
-                this.newMessage(new ChatMessage(data.msg.message, data.msg.sender));
+                this.newMessage(new ChatMessage(data.msg, data.sender));
                 console.log(data);
             });
             this.socket.on('userDisconnect', (data) => {
