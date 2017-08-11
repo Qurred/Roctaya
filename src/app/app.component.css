@@ -1,3 +1,11 @@
+#title{
+    background-image: url("./../assets/misc/logo.png");
+    background-repeat: no-repeat;
+    margin: 10px auto;
+    width: 705px;
+    height: 310px;
+}
+
 .mainDiv {
     /*background-color: bisque;*/
     border-style: solid;

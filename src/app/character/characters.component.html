@@ -1,6 +1,5 @@
 <div class="container">
     <div class="characterCircle">
-        <!-- Here we could create 'curtain'-effect  -->
         <img class="selectedAvatar" *ngIf="selectedCharacter" src="./../assets/characters/{{selectedCharacter.avatar}}">
         <div class="avatarHolder" [ngStyle]="calcDeg(i)" *ngFor="let character of myCharacters; let i = index;" (click)="setSelectedCharacter(character)"
             [ngClass]="{selected: isSelected(character)}">
@@ -29,3 +28,6 @@
         </div>
     </div>
 </div>
+
+
+<app-character-selection></app-character-selection>

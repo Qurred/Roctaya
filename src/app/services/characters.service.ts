@@ -24,7 +24,7 @@ export class CharacterService {
                    parseInt(listOfCharacters[i].id),
                    listOfCharacters[i].name,
                    listOfCharacters[i].story,
-                   null, //Because we currently dont have anything to model skill
+                   null, //Because we currently dont have anything to model skills
                    listOfCharacters[i].img_path,
                    parseInt(listOfCharacters[i].health),
                    parseInt(listOfCharacters[i].mana),
@@ -39,6 +39,10 @@ export class CharacterService {
         })
         .catch((error: Response) => Observable.throw(error.json()))
         .subscribe();
+    }
+
+    getCharacters(){
+        return this.characters;
     }
 
     updateCharacter(id: number, xp: number){
