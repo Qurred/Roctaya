@@ -1,33 +1,28 @@
 #title{
+    position: relative;
     background-image: url("./../assets/misc/logo.png");
     background-repeat: no-repeat;
-    margin: 10px auto;
+    margin: 30px auto;
     width: 705px;
     height: 310px;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    z-index: 3;
 }
 
 .mainDiv {
-    /*background-color: bisque;*/
     border-style: solid;
-    /*border-radius: 50% / 30%;*/
     border-width: 25px;
     border-image: url("./../assets/misc/vine.png") 25  fill repeat round;
-    /*width: 33vw;
-    height: 33vh;*/
     width: 550px;
     height: 325px;
-    /*background: radial-gradient(circle, rgba(1, 202, 17,1), rgba(0, 76, 6, 1));*/
-	position: absolute;
-	top:0;
-	bottom: 0;
-	left: 0;
-	right: 0;
 	margin: auto;
     -webkit-animation-duration: 1s;
     animation-duration: 1s;
     -webkit-animation-name: fadeIn;
     animation-name: fadeIn;
-    /*overflow: hidden;*/
 }
 h1 {
     top:0;
@@ -64,7 +59,6 @@ h1 {
     margin-top: 2%;
     width: 30%;
     color:#fff;
-    /*margin:auto 0;*/
     border-style: solid;
     border-width: 25px;
     border-image: url("./../assets/misc/vine.png") 25  fill repeat round;
@@ -89,3 +83,27 @@ h1 {
     overflow-y: scroll;
 }
          
+#play{
+    background: url('./../assets/misc/button.png') center;
+    width: 250px;
+    height: 151px;
+    cursor: pointer;
+    transition: 0.2s;
+    transition-timing-function: ease;
+
+}
+
+#play p{
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 35px;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+}
+
+#play:hover{
+    color: #47CFFF;
+}

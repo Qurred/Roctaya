@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { SigninComponent } from './auth/signin/signin.component';
@@ -15,6 +16,10 @@ import { CharactersComponent } from './character/characters.component';
 import { CharacterService } from "./services/characters.service";
 import { SocketService } from "./services/socket.service";
 import { CharacterSelectionComponent } from "./battle/characterSelection.component";
+import { HomeComponent } from './home/home.component';
+
+
+import { routing } from './app.routing';
 
 @NgModule({
   declarations: [
@@ -26,13 +31,15 @@ import { CharacterSelectionComponent } from "./battle/characterSelection.compone
     ChatComponent,
     ChatMessageComponent,
     CharactersComponent,
-    CharacterSelectionComponent
+    CharacterSelectionComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    routing
   ],
   providers: [AuthService, CharacterService, SocketService],
   bootstrap: [AppComponent]

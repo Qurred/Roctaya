@@ -53,7 +53,8 @@ const server = http.createServer(app);
 var chat = require('./server/socket')(server);
 
 app.use(function (req, res, next) {
-    res.redirect('/');
+    // res.redirect('/');
+    res.sendFile(path.join(__dirname, 'dist/index.html'));
 });
 
 server.listen(app.get('port'), () => console.log(`Backend is running at ${app.get('port')}`));

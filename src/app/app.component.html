@@ -1,6 +1,8 @@
 <!-- <h1 *ngIf="(!authService.loggedIn);">{{title}}</h1> -->
 <div id="title"></div>
-<div class="mainDiv" onload="style.opacity='1'" *ngIf="(!authService.loggedIn);else signedin">
+
+<!-- *ngIf="(!authService.loggedIn);else signedin" -->
+<!-- <div class="mainDiv">
   <div style="display: inline-block; width: 100%;">
     <div class="info">
       {{info}}
@@ -9,14 +11,23 @@
       <app-signin></app-signin>
     </div>
   </div>
-</div>
 
+  <div id="play">
+    <p>TO GAME</p>
+  </div>
+</div> -->
+
+<router-outlet></router-outlet>
+
+<!-- <div id="signin">
+  <app-signin></app-signin>
+</div> -->
+
+
+<!-- 
 <ng-template #signedin>
   <app-characters></app-characters>
   <div style="width: 100%; height: 100%">
     <app-chat></app-chat>
-    <!--<div class="newslist">
-      <news-list></news-list>
-    </div>-->
   </div>
-</ng-template>
+</ng-template> -->

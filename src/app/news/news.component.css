@@ -1,10 +1,19 @@
 h2{
     font-size: 24px;
     color: #333;
+    width: 80%;
 }
 
 .info{
-        border-style: solid;
-        border-width: 25px;
-        border-image: url("./../../assets/misc/vine.png") 25  fill repeat round;
+    background: #074F21;
+    border-radius: 6px;
+    height: 125px;
+}
+.news-title{
+    text-align: center;
+    font-weight: bold;
+}
+
+.news-meta{
+    text-align: center;
 }

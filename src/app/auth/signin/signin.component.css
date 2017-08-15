@@ -1,0 +1,67 @@
+#signin{
+    position: relative;
+    margin:  -100px auto;
+    background: url('/assets/misc/plantframe.jpg') center;
+    width: 800px;
+    height: 600px;
+    box-shadow: 0 0 15px 10px #12200f;
+}
+
+#formwrapper{
+    position: relative;
+    margin: auto;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 400px;
+    height: 280px;
+    /* background-color: pink; */
+}
+
+label{
+    margin: 1px auto;
+    color: #FFF;
+    font-family: "Segoe UI";
+    font-weight: bolder;
+    font-size: 27px;
+    text-align: center;
+}
+
+input{
+    padding: 4px;
+    width: 100%;
+    background: #CCF6F5;
+    border:2px solid #015203;
+    font-family: "Segoe UI";
+    font-size: 18px;
+}
+
+input:focus{
+    background: #CCF6F5;
+}
+
+button{
+    cursor: pointer;
+    width: 150px;
+    height: 60px;
+    margin: auto;
+    background: linear-gradient(to bottom,#194900 0,#42B308 60%,#194900 100%);
+    border-radius: 5px;
+    color: #FFF;
+    font-family: "Segoe UI";
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 5px 5px #12200f;
+}
+
+#register{
+    text-align: center;
+    width: 135px;
+    cursor: pointer;    
+    font-size: 16px;
+    color: #41B50E;
+}
+
+#register:hover{
+    color: #5FD729;
+}
