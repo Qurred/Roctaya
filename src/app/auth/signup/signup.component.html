@@ -1,23 +1,22 @@
-<form [formGroup]="signupForm" (ngSubmit)="signUp()">
-  <div class="form-group">
-    <label for="username">Username:</label>
-    <input type="text" id="username" class="form-control" formControlName="username">
-  </div>
-<div class="form-group">
-    <label for="nickname">Nickname:</label>
-    <input type="text" id="nickname" class="form-control" formControlName="nickname">
-  </div>
-<div class="form-group">
-    <label for="password">Password:</label>
-    <input type="text" id="password" class="form-control" formControlName="password">
-  </div>
-<div class="form-group">
-    <label for="passwordRepeat">Comfirm password:</label>
-    <input type="text" id="passwordRepeat" class="form-control" formControlName="passwordRepeat">
-  </div>
-<button
-   type="submit"
-   [disabled] = "!signupForm.valid"
-  >Signup</button>
-
-</form>
+<div id="formwrapper">
+  <form [formGroup]="signupForm" (ngSubmit)="signUp()">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" class="form-control" formControlName="username">
+    </div>
+    <div class="form-group">
+      <label for="nickname">Nickname</label>
+      <input type="text" id="nickname" class="form-control" formControlName="nickname">
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="text" id="password" class="form-control" formControlName="password">
+    </div>
+    <div class="form-group">
+      <label for="passwordRepeat">Comfirm password</label>
+      <input type="text" id="passwordRepeat" class="form-control" formControlName="passwordRepeat">
+    </div>
+    <button type="submit" [disabled]="!signupForm.valid">Register</button>
+  </form>
+  <p id="login" (click)="loginShow()">Already have an account? Press here to login</p>
+</div>

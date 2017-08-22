@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthService } from './../../services/auth.service';
@@ -12,6 +12,8 @@ import { User } from '../user.module';
 export class SigninComponent implements OnInit {
     signinForm: FormGroup;
     signin: boolean = true;
+
+    @Output() changeView = new EventEmitter();
     constructor(private authService: AuthService) { }
 
     signIn() {
@@ -20,7 +22,7 @@ export class SigninComponent implements OnInit {
             this.signinForm.value.password
         ).subscribe(
             data => {
-                localStorage.setItem("token", data.token);
+                localStorage.setItem('token', data.token);
                 localStorage.setItem('nickname', data.nickname);
                 localStorage.setItem('_id', data.id);
                 this.authService.loggedIn = true;
@@ -37,6 +39,6 @@ export class SigninComponent implements OnInit {
         });
     }
     signupShow(){
-        alert('Nope... just testing.... Sorry ;_;');
+        this.changeView.emit();
     }
 }

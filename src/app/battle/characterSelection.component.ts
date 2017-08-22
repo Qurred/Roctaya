@@ -11,16 +11,15 @@ export class CharacterSelectionComponent{
     public selectedCharacters: Character[] = [];
     public myCharacters: Character[] = [];
 
-    constructor(private characterService:CharacterService){}
+    constructor(private characterService: CharacterService){}
 
     ngOnInit(){
-        console.log(this.characterService.characters);
         this.myCharacters = this.characterService.getCharacters();
     }
 
     addToSelection(c: Character){
-        if(this.selectedCharacters.indexOf(c) === -1){
-            if(this.selectedCharacters.length < 4){
+        if (this.selectedCharacters.indexOf(c) === -1){
+            if (this.selectedCharacters.length < 4){
                 this.selectedCharacters.push(c);
                 console.log(this.selectedCharacters.length);
             }
@@ -36,7 +35,7 @@ export class CharacterSelectionComponent{
 
     setBackground(c: Character){
         const  style = {
-            'background-image': `url(\'./../assets/characters/${c.avatar}')`
+            'background-image': `url(\'/assets/characters/${c.avatar}')`
         };
         return style;
     }

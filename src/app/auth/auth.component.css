@@ -1,0 +1,8 @@
+#auth{
+    position: relative;
+    margin:  -100px auto;
+    background: url('/assets/misc/plantframe.jpg') center;
+    width: 800px;
+    height: 600px;
+    box-shadow: 0 0 15px 10px #12200f;
+}

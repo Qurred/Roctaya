@@ -25,7 +25,7 @@
     width: 776px;
     height: 444px;
     pointer-events: none;
-    background: url("/assets/misc/charSelection.png");
+    background: url("/assets/misc/char-Selection.png");
     background-repeat: no-repeat;
     z-index: 10;
     margin: auto; 

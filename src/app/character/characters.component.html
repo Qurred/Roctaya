@@ -1,4 +1,5 @@
 <div class="container">
+
     <div class="characterCircle">
         <img class="selectedAvatar" *ngIf="selectedCharacter" src="./../assets/characters/{{selectedCharacter.avatar}}">
         <div class="avatarHolder" [ngStyle]="calcDeg(i)" *ngFor="let character of myCharacters; let i = index;" (click)="setSelectedCharacter(character)"
@@ -6,11 +7,14 @@
             <img class="avatar" src="./../assets/characters/{{character.avatar}}" alt="Icon">
         </div>
     </div>
-    <div id="overlay"></div>
+    <div id="overlay">
+            <div class="corner" id="rightbottom" style="bottom:15px;"></div>
+            <div class="corner" id="righttop" style="top:15px;"></div>
+    </div>
     <div class="characterinfo">
         <div *ngIf="selectedCharacter">
             <p id="name">{{selectedCharacter.name}}</p>
-            <p id="title">{{selectedCharacter.title}}</p>
+            <p id="chartitle">{{selectedCharacter.title}}</p>
             <!-- Maybe we should nest story into div  -->
             <p id="story">{{selectedCharacter.story}}</p>
             <div class="stats">
@@ -30,4 +34,4 @@
 </div>
 
 
-<app-character-selection></app-character-selection>
+<!-- <app-character-selection></app-character-selection> -->

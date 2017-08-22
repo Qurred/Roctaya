@@ -17,7 +17,8 @@ import { CharacterService } from "./services/characters.service";
 import { SocketService } from "./services/socket.service";
 import { CharacterSelectionComponent } from "./battle/characterSelection.component";
 import { HomeComponent } from './home/home.component';
-
+import { GameComponent } from './game/game.component';
+import { AuthComponent } from './auth/auth.component';
 
 import { routing } from './app.routing';
 
@@ -32,7 +33,9 @@ import { routing } from './app.routing';
     ChatMessageComponent,
     CharactersComponent,
     CharacterSelectionComponent,
-    HomeComponent
+    HomeComponent,
+    GameComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,

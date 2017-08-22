@@ -1,0 +1,14 @@
+<div id="auth">
+    <div class="corner" id="leftbottom"></div>
+    <div class="corner" id="rightbottom"></div>
+    <div class="corner" id="lefttop"></div>
+    <div class="corner" id="righttop"></div>
+    <div *ngIf="this.showLogin; then login else register;"></div>
+</div>
+
+<ng-template #login>
+    <app-signin (changeView)="changeView()"></app-signin>
+</ng-template>
+<ng-template #register>
+    <app-signup (changeView)="changeView()"></app-signup>
+</ng-template>

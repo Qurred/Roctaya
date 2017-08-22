@@ -63,3 +63,60 @@
     background: -moz-linear-gradient(to left, #006F06,#1AC423,#006F06); /* For Firefox 3.6 to 15 */
     background: linear-gradient(to left, #006F06,#1AC423,#006F06); /* Standard syntax */
 }
+
+#title{
+    position: relative;
+    background-image: url("/assets/misc/logo.png");
+    background-repeat: no-repeat;
+    margin: 30px auto;
+    width: 750px;
+    height: 327px;
+    -webkit-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
+    z-index: 3;
+    padding-right: 4px;
+}
+
+/* Animations */
+@-webkit-keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+         
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+
+.corner{
+    background: url('/assets/misc/bordercorner.png') center;
+    width: 150px;
+    height: 150px;
+    z-index: 1;
+    position: absolute;
+}
+#leftbottom{
+    left: -15px;
+    bottom: -15px;
+}
+#rightbottom{
+    right: -15px;
+    bottom: -15px;
+    -webkit-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+}
+#lefttop{
+    left: -15px;
+    top: -15px;
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+#righttop{
+    right: -15px;
+    top: -15px;
+    -webkit-transform: rotate(180deg);
+    transform: rotate(180deg);
+}

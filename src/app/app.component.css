@@ -1,18 +1,6 @@
-#title{
-    position: relative;
-    background-image: url("./../assets/misc/logo.png");
-    background-repeat: no-repeat;
-    margin: 30px auto;
-    width: 705px;
-    height: 310px;
-    -webkit-animation-duration: 1s;
-    animation-duration: 1s;
-    -webkit-animation-name: fadeIn;
-    animation-name: fadeIn;
-    z-index: 3;
-}
 
-.mainDiv {
+
+/* .mainDiv {
     border-style: solid;
     border-width: 25px;
     border-image: url("./../assets/misc/vine.png") 25  fill repeat round;
@@ -65,15 +53,6 @@ h1 {
   
 }
 
-@-webkit-keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-}
-         
-@keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
-}
 
 .newslist{
     height: 300px;
@@ -91,9 +70,9 @@ h1 {
     transition: 0.2s;
     transition-timing-function: ease;
 
-}
+} */
 
-#play p{
+/* #play p{
     position: relative;
     top: 50%;
     transform: translateY(-50%);
@@ -106,4 +85,4 @@ h1 {
 
 #play:hover{
     color: #47CFFF;
-}
+} */
