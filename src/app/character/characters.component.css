@@ -1,14 +1,10 @@
 .container{
-    /* background-color: red; */
     position: relative;
     margin-left: 60px;
     width: 450px;
     height: 450px;
     overflow: visible; 
     display: block;
-    /* transition-property: width;
-    transition-duration: 1s;
-    transition-timing-function: linear; */
 }
 
 
@@ -34,23 +30,15 @@
 .characterCircle .selectedAvatar{
     position:absolute;
     border-radius: 50%;
-     /* height: auto;
-    width: auto; 
-    max-width: 100px;  
-    display: block; */
     transform: scale(2.5, 2.5);
     -ms-transform: scale(2.5, 2.5);
     -webkit-transform: scale(2.5, 2.5);
     top: 50%;
     left: 50%;
-     /* margin:-50px;  
-    z-index: 1; */
     -webkit-user-drag: none;
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
-    /* user-drag: none; */
-    /* border: 10px solid rgb(167, 20, 70); */
 }
 
 .characterCircle .selected{
@@ -65,15 +53,7 @@
     position: absolute;
     top: 55%; left: 55%; 
     border: solid 3px;
-     /* margin: -2em;   */
 }
-
-/* .avatar div:hover {
-    position: absolute;
-	width: 4em;
-    background: rgba(0,0,0,.5);
-    transition: .7s;
-} */
 
 .characterCircle div img { display: block; width: 100%; }
 
@@ -83,7 +63,6 @@
     -khtml-user-drag: none;
     -moz-user-drag: none;
     -o-user-drag: none;
-    /* user-drag: none; */
     border-radius: 50%;
     height: auto;
     width: auto;
@@ -117,4 +96,23 @@
     padding: 0px;
     float: right;
     list-style-type:none;
+}
+
+.text-center{
+    text-align: center;
+}
+
+addTeam-btn{
+    cursor: pointer;
+    width: 150px;
+    height: 60px;
+    margin: auto;
+    background: linear-gradient(to bottom,#194900 0,#42B308 60%,#194900 100%);
+    border-radius: 5px;
+    color: #FFF;
+    font-family: "Segoe UI";
+    font-size: 28px;
+    font-weight: bold;
+    text-transform: uppercase;
+    box-shadow: 0 0 5px 5px #12200f;
 }

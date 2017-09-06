@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
     public messages: ChatMessage[] = [];
     public chatForm: FormGroup;
 
-    constructor(public ss: SocketService){}
+    constructor(public ss: SocketService) { }
 
     ngOnInit() {
         this.chatForm = new FormGroup({
@@ -34,19 +34,19 @@ export class ChatComponent implements OnInit {
             this.socket = this.ss.socket;
             this.socket.on('users', (data) => {
                 const usersArray = data.users;
-                for(let i = 0; i < usersArray.length; i++){
-                    this.users.push(new ChatUser(usersArray[i].id,usersArray[i].nickname));
+                for (let i = 0; i < usersArray.length; i++) {
+                    this.users.push(new ChatUser(usersArray[i].id, usersArray[i].nickname));
                 }
             });
-            this.socket.on('newUser', (data) =>{
-                this.users.push(new ChatUser(data.id,data.nickname));
+            this.socket.on('newUser', (data) => {
+                this.users.push(new ChatUser(data.id, data.nickname));
             })
             this.socket.on('message', (data) => {
                 this.newMessage(new ChatMessage(data.msg, data.sender));
                 console.log(data);
             });
             this.socket.on('userDisconnect', (data) => {
-                this.userDisconnected(new ChatMessage(data.msg,data.sender));
+                this.userDisconnected(new ChatMessage(data.msg, data.sender));
                 console.log(data);
             });
             this.socket.on('disconnected', (data) => {
@@ -67,19 +67,20 @@ export class ChatComponent implements OnInit {
         }
     }
     sendMessage() {
-        if(this.chatForm.value.message == null || this.chatForm.value.message.trim() === '') {
+        if (this.chatForm.value.message == null || this.chatForm.value.message.trim() === '') {
             this.chatForm.reset();
-            return;}
+            return;
+        }
         this.socket.emit('message', {
             message: this.chatForm.value.message
-        }); 
-        this.messages.push(new ChatMessage(this.chatForm.value.message,localStorage.getItem('nickname')));
+        });
+        this.messages.push(new ChatMessage(this.chatForm.value.message, localStorage.getItem('nickname')));
         this.chatForm.reset();
     }
     userDisconnected(msg: ChatMessage) {
-        for(let i = 0; i < this.users.length; i++){
-            if(this.users[i].nickname === msg.sender){
-                this.users.splice(i,1);
+        for (let i = 0; i < this.users.length; i++) {
+            if (this.users[i].nickname === msg.sender) {
+                this.users.splice(i, 1);
             }
         }
     }

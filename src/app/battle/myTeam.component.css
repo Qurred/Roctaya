@@ -5,15 +5,10 @@
     height: 80px;
     width: 80px; 
     display: inline-block;
-    filter: grayscale(1);
+    /* filter: grayscale(1); */
     border: 5px solid #f4f4f4;
     transition: 1.1s;
     transition-timing-function: ease;
-}
-
-.selected{
-    border: 5px solid #a1f;
-    filter: none;
 }
 
 #characterWrapper{
@@ -23,9 +18,9 @@
     height: 225px;
 }
 
-#charSelection{
-    padding: 12px;
+#myTeam-wrapper{
+    padding: 5px;
     background: pink;
-    width: 700px;
-    height: 400px;
+    width: 400px;
+    height: 150px;
 }

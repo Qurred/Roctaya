@@ -1,7 +1,0 @@
-<div id="charSelection">
-    <div id="characterWrapper">
-        <p>Choose your characters</p>
-        <div class="avatar" *ngFor="let character of myCharacters" [ngStyle]="setBackground(character)" (click)='addToSelection(character)'
-            [ngClass]="{selected: isSelected(character)}"></div>
-    </div>
-</div>

@@ -14,7 +14,7 @@ export class SignUpComponent implements OnInit {
     @Output() changeView = new EventEmitter();
     constructor(private authService: AuthService) { }
 
-    ngOnInit(){
+    ngOnInit() {
         this.signupForm = new FormGroup({
             username: new FormControl(null, Validators.required),
             nickname: new FormControl(null, Validators.required),
@@ -22,14 +22,14 @@ export class SignUpComponent implements OnInit {
                 Validators.required,
                 Validators.pattern("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")
             ]),
-            password: new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(20)]),
-            passwordRepeat: new FormControl(null, [Validators.required, Validators.minLength(6),Validators.maxLength(20)])
+            password: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)]),
+            passwordRepeat: new FormControl(null, [Validators.required, Validators.minLength(6), Validators.maxLength(20)])
         });
     }
 
-    signUp(){
+    signUp() {
         alert('Sorry! Currently registering new users is disable because of maintaince.');
-        
+
     }
     // passwordValidator(fg: FormGroup){
     //     if(fg.value.password === fg.value.passwordRepeat){
@@ -37,7 +37,7 @@ export class SignUpComponent implements OnInit {
     //     }
     //     return true;
     // }
-    loginShow(){
+    loginShow() {
         this.changeView.emit();
     }
 }

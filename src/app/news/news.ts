@@ -1,6 +1,6 @@
 // constructor(private http: Http) {}
 
-export class News{
+export class News {
 
     constructor(
         public creator: number,
@@ -8,5 +8,5 @@ export class News{
         public body: String,
         public time: String,
         public banner: string
-    ){}
+    ) { }
 }

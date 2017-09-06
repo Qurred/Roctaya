@@ -6,11 +6,11 @@ import * as io from 'socket.io-client';
 // This service class is not ready.
 
 @Injectable()
-export class SocketService{
+export class SocketService {
     public socket;
 
-    connectSocket(){
-        this.socket = io({query: 'token=' + localStorage.getItem('token')});
+    connectSocket() {
+        this.socket = io({ query: 'token=' + localStorage.getItem('token') });
         console.log(this.socket);
     }
 

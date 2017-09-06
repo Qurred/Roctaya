@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter  } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { AuthService } from './../../services/auth.service';
@@ -28,7 +28,7 @@ export class SigninComponent implements OnInit {
                 this.authService.loggedIn = true;
             },
             err => console.error(err)
-        );
+            );
         this.signinForm.reset();
     }
 
@@ -38,7 +38,7 @@ export class SigninComponent implements OnInit {
             password: new FormControl(null, Validators.required)
         });
     }
-    signupShow(){
+    signupShow() {
         this.changeView.emit();
     }
 }

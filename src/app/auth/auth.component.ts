@@ -5,12 +5,12 @@ import { Component } from "@angular/core";
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.css']
 })
-export class AuthComponent{
+export class AuthComponent {
 
     public showLogin: Boolean = true;
-    constructor() {}
+    constructor() { }
 
-    changeView(){
+    changeView() {
         this.showLogin = !this.showLogin;
     }
 }

@@ -13,9 +13,9 @@ import { AuthService } from './services/auth.service';
 import { ChatComponent } from './chat/chat.component';
 import { ChatMessageComponent } from './chat/chat-message.component';
 import { CharactersComponent } from './character/characters.component';
-import { CharacterService } from "./services/characters.service";
-import { SocketService } from "./services/socket.service";
-import { CharacterSelectionComponent } from "./battle/characterSelection.component";
+import { CharacterService } from './services/characters.service';
+import { SocketService } from './services/socket.service';
+import { MyTeamComponent } from './battle/myTeam.component';
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
 import { AuthComponent } from './auth/auth.component';
@@ -32,7 +32,7 @@ import { routing } from './app.routing';
     ChatComponent,
     ChatMessageComponent,
     CharactersComponent,
-    CharacterSelectionComponent,
+    MyTeamComponent,
     HomeComponent,
     GameComponent,
     AuthComponent

@@ -8,7 +8,7 @@ import { ChatMessage } from './chat-message.model';
         {{msg.sender}}:<span class="messagebody">{{msg.message}}</span>
     </li>
     `,
-    styles:[`
+    styles: [`
         li{
             color:#009900;
             font-size:20;

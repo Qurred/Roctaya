@@ -8,8 +8,8 @@
         </div>
     </div>
     <div id="overlay">
-            <div class="corner" id="rightbottom" style="bottom:15px;"></div>
-            <div class="corner" id="righttop" style="top:15px;"></div>
+        <div class="corner" id="rightbottom" style="bottom:15px;"></div>
+        <div class="corner" id="righttop" style="top:15px;"></div>
     </div>
     <div class="characterinfo">
         <div *ngIf="selectedCharacter">
@@ -20,18 +20,26 @@
             <div class="stats">
                 <ul id="statList">
                     <li>Level: {{calcLevel()}}</li>
-                    <li>Health: {{selectedCharacter.health}}</li>
-                    <li>Mana: {{selectedCharacter.mana}}</li>
-                    <li>Attack: {{selectedCharacter.attack}}</li>
-                    <li>Defence: {{selectedCharacter.defence}}</li>
-                    <li>Speed: {{selectedCharacter.speed}}</li>
-                    <li>Intellect: {{selectedCharacter.intellect}}</li>
-                    <li>Sanity: {{selectedCharacter.sanity}}</li>
+                    <li>Health: {{updateStat("health")}}</li>
+                    <li>Mana: {{updateStat("mana")}}</li>
+                    <li>Attack: {{updateStat("attack")}}</li>
+                    <li>Defence: {{updateStat("defence")}}</li>
+                    <li>Speed: {{updateStat("speed")}}</li>
+                    <li>Intellect: {{updateStat("intellect")}}</li>
+                    <li>Sanity: {{updateStat("sanity")}}</li>
                 </ul>
+            </div>
+            <div class="addTeam-btn" (click)="addtoTeam(selectedCharacter)">
+                <div *ngIf="isInTeam(selectedCharacter); then removefromteam else addtoteam"></div>
+                <ng-template #addtoteam>
+                    <p class="center-y text-center">Add to team</p>
+                </ng-template>
+                <ng-template #removefromteam>
+                    <p class="center-y text-center">Remove from team</p>
+                </ng-template>
             </div>
         </div>
     </div>
 </div>
 
-
-<!-- <app-character-selection></app-character-selection> -->
+<app-my-team></app-my-team>

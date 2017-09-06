@@ -1,0 +1,5 @@
+<div id="myTeam-wrapper">
+    <div id="characterWrapper">
+        <div class="avatar" *ngFor="let character of this.characterService.team" [ngStyle]="setBackground(character)"></div>
+    </div>
+</div>
